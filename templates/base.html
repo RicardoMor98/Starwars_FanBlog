@@ -1,3 +1,4 @@
+{% load static %}
 {% url 'home' as home_url %}
 
 <!DOCTYPE html>
@@ -19,45 +20,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <style>
-        .main-bg {
-            background: url('https://starwarsblog.starwars.com/wp-content/uploads/2020/05/sw-celebration-starfield-1920x1080.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-        }
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'images' %}">
 
-        .brand {
-            font-family: 'Oswald', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-
-        .red-o {
-            color: #f44336;
-        }
-
-        .navbar {
-            background-color: #000;
-        }
-
-        .navbar-text {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .footer {
-            background-color: #000;
-            color: #fff;
-        }
-
-        .nav-link {
-            color: #fff !important;
-        }
-
-        .nav-link.active {
-            font-weight: bold;
-            border-bottom: 2px solid #f44336;
-        }
-    </style>
 </head>
 
 <body class="d-flex flex-column h-100 main-bg">
@@ -71,10 +37,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0 justify-content-lg-end justify-content-center w-100">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="#">Home</a>
+                        <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Blog Posts</a>
@@ -86,13 +51,11 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                 </ul>
-                <span class="navbar-text">
-                    A galaxy of stories awaits
-                </span>
             </div>
         </div>
     </nav>
 
+    
     <main class="flex-shrink-0">
         <div class="container py-5">
             <h1 class="text-center">Welcome to the Star Wars Fan Blog</h1>
@@ -106,13 +69,21 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3">
-        <p class="m-0 text-center">Made by Star Wars Enthusiasts</p>
+    <footer class="footer mt-auto py-3 bg-dark text-white">
+        <p class="m-0 text-center">Made by Star Wars Enthusiast Ricardo Moreira</p>
         <p class="m-0 text-center">Follow us: 
-            <i class="fab fa-facebook-square ms-3"></i>
-            <i class="fab fa-twitter-square ms-3"></i>
-            <i class="fab fa-instagram-square ms-3"></i>
-            <i class="fab fa-youtube-square ms-3"></i>
+            <a href="#" class="social-icon ms-3" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook-square"></i>
+            </a>
+            <a href="#" class="social-icon ms-3" target="_blank" aria-label="Twitter">
+                <i class="fab fa-twitter-square"></i>
+            </a>
+            <a href="#" class="social-icon ms-3" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram-square"></i>
+            </a>
+            <a href="#" class="social-icon ms-3" target="_blank" aria-label="YouTube">
+                <i class="fab fa-youtube-square"></i>
+            </a>
         </p>
     </footer>
 
