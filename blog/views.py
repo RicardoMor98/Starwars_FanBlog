@@ -93,3 +93,7 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         # Redirect to the profile page after successful deletion
         messages.success(self.request, "Post deleted successfully!")
         return reverse_lazy('profile')
+
+def post_detail(request, pk):
+    post = Post.objects.get(pk=pk)
+    return render(request, 'post_detail.html', {'post': post})
