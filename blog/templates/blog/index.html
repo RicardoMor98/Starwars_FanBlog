@@ -4,27 +4,26 @@
 
 <!-- index.html content starts here -->
 <div class="container-fluid">
-    <div class="row">
-
+    <div class="row justify-content-center">
+        
         <!-- Blog Entries Column -->
-        <div class="col-8 mt-4 left">
+        <div class="col-lg-8 col-md-10 col-12 mt-4">
             <div class="row">
-                {% for post in post_list %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="image-container">
-                                <div class="image-flash">
-                                    <p class="author">Author: {{ post.author }}</p>
-                                </div>
-                            </div>
-                            <a href="#" class="post-link">
-                                <h2 class="card-title">{{ post.title }}</h2>
-                            </a>
 
+                {% for post in post_list %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="{{ post.image.url }}" class="card-img-top img-fluid" alt="{{ post.title }}">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <p class="author text-muted">Author: {{ post.author }}</p>
+                                <p class="text-muted small">{{ post.created_on }}</p>
+                            </div>
+                            <a href="#" class="post-link text-decoration-none">
+                                <h2 class="card-title h4 mb-3 text-dark">{{ post.title }}</h2>
+                            </a>
                             <hr />
-                            <p class="card-text text-muted h8">{{ post.created_on}}
-                            </p>
+                            <p class="card-text text-muted">{{ post.excerpt|truncatewords:20 }}</p>
                         </div>
                     </div>
                 </div>
@@ -33,15 +32,27 @@
             <div class="row">
                 {% endif %}
                 {% endfor %}
-
             </div>
         </div>
     </div>
+
+    <!-- Pagination -->
     {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    &laquo; Previous
+                </a>
+            </li>
+            {% endif %}
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    Next &raquo;
+                </a>
+            </li>
             {% endif %}
         </ul>
     </nav>
