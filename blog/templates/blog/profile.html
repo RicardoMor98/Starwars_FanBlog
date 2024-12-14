@@ -5,11 +5,11 @@
     <div class="row">
         <!-- Profile Card -->
         <div class="col-md-4">
-            <div class="card" style="background-color: #f7f7f73f; background-size: cover; background-position: center;">
-                <div class="card-header text-left bg-transparent">
+            <div class="card" style="background-color: #ffffff4d; background-size: cover; background-position: center;">
+                <div class="card-header text-left bg-transparent" style= "color: #e9f7fc;">
                     <h4>Your Profile</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style= "color: #e9f7fc;">
                     <h5 class="card-title">Welcome, {{ user.username }}!</h5>
                     <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
                     <p class="card-text"><strong>Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
