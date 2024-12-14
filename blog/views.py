@@ -10,6 +10,10 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .models import Post
 from .forms import UserRegisterForm
+from django.views.generic import DetailView
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+
 
 # Home page view to display published posts
 class PostList(generic.ListView):
@@ -96,4 +100,25 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
+
+    next_url = request.GET.get('next', '/')
+
     return render(request, 'post_detail.html', {'post': post})
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            # Redirect to the profile page after login
+            return redirect('profile')  # 'profile' should be the name of your profile URL
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'login.html', {'form': form})

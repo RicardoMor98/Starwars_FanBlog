@@ -12,14 +12,19 @@ class Post(models.Model):
     )
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)  # Added field for updated_on
     status = models.IntegerField(choices=STATUS, default=0)
     excerpt = models.TextField(blank=True)
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
+
     class Meta:
         ordering = ["-created_on"]
+        verbose_name = "Blog Post"
+        verbose_name_plural = "Blog Posts"
 
     def __str__(self):
         return f"{self.title} | written by {self.author}"
+
 
 class Comment(models.Model):
     post = models.ForeignKey(
@@ -29,3 +34,11 @@ class Comment(models.Model):
     body = models.TextField()
     approved = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_on"]  # Optional ordering for comments
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.post.title}"
