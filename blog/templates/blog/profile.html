@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Your Profile</h1>
+    <p>Welcome, {{ user.username }}!</p>
+    <h2>Your Posts</h2>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a> - 
+            <a href="{% url 'post-edit' post.id %}">Edit</a> - 
+            <a href="{% url 'post-delete' post.id %}">Delete</a>
+        </li>
+        {% empty %}
+        <p>No posts yet.</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'post-create' %}" class="btn btn-primary">Create New Post</a>
+</div>
+{% endblock %}
