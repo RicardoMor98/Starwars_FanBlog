@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h1>Login</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 50vh;">
+    <!-- Adjusted card style for better visibility -->
+    <div class="card p-4" 
+         style="width: 100%; max-width: 300px; box-shadow: 0 4px 8px rgba(236, 230, 230, 0.1); 
+                border: 1px solid rgba(255, 255, 255, 0.2); 
+                background-color: rgba(255, 255, 255, 0.089);">
+        <h1 class="text-left" style="color: rgb(241, 239, 239);">Login</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div style="color: rgb(247, 241, 241);">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
