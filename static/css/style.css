@@ -1,5 +1,8 @@
 .main-bg {
-    color: #fffbfb;
+    background-image: url('/static/images/galaxyuniverse.avif');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
 }
 
 .brand {
