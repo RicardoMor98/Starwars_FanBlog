@@ -26,7 +26,9 @@
 
 </head>
 
-<body class="d-flex flex-column h-100 main-bg" style="background-image: url({% static 'images/galaxyuniverse.avif' %}); background-size: cover; background-position: center center; background-attachment: fixed;">
+<body class="d-flex flex-column h-100 main-bg" 
+      style="background-image: ({% static 'images/galaxyuniverse.avif' %}); background-size: cover; background-position: center center; background-attachment: fixed;">
+
 
 
 
@@ -67,7 +69,21 @@
             </div>
         </div>
     </nav>
-
+    <!-- displaying Django messages -->
+    <div class="container">
+        <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible
+            fade show" id="msg" role="alert">
+            {{ message | safe }}
+            <button type="button" class="btn-close"
+                data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
     <main class="flex-shrink-0 mt-4">
         <div class="container py-5 style= color: text-white">
             <h1 class="text-center">Welcome to the Star Wars Fan Blog</h1>
