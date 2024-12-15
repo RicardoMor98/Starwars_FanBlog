@@ -6,9 +6,10 @@
         <div class="col-lg-8 col-md-10 col-12">
             <div class="card shadow-sm">
                 <div class="card-img-container">
-                    {% if post.image_url %}
-                    <img src="{{ post.image_url }}" class="card-img-top img-fluid" alt="{{ post.title }}">
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top img-fluid" alt="{{ post.title }}">
                     {% endif %}
+                </div>
                 <div class="card-body">
                     <h2 class="card-title h5 mb-3 text-dark">{{ post.title }}</h2>
                     <div class="d-flex justify-content-between mb-3">
@@ -23,6 +24,37 @@
                         <a href="{% url 'home' %}" class="btn btn-secondary">Back to Posts</a>
                     </div>
                 </div>
+            </div>
+
+            <!-- Comment Section -->
+            <div class="mt-5">
+                <h3 class="h5 text-dark">Comments</h3>
+                <div class="comments-list">
+                    {% for comment in comments %}
+                        <div class="comment my-3 p-3 border rounded">
+                            <p class="text-muted mb-1 small"><strong>{{ comment.author }}</strong> - {{ comment.created_on }}</p>
+                            <p class="mb-0">{{ comment.body }}</p>
+                        </div>
+                    {% empty %}
+                        <p class="text-muted">No comments yet. Be the first to comment!</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Comment Form -->
+            <div class="mt-4">
+                <h4 class="h6 text-dark">Leave a Comment</h4>
+                {% if request.user.is_authenticated %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ comment_form.as_p }}
+                        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                    </form>
+                {% else %}
+                    <p class="text-muted">
+                        You must be <a href="{% url 'login' %}?next={{ request.path }}" class="text-primary">logged in</a> to leave a comment.
+                    </p>
+                {% endif %}
             </div>
         </div>
     </div>
