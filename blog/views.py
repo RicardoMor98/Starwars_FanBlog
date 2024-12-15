@@ -55,18 +55,23 @@ def profile(request):
     return render(request, 'blog/profile.html', context)
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    """
+    View to handle the creation of a new blog post.
+    Assigns the logged-in user as the author automatically.
+    """
     model = Post
-    fields = ['title', 'content', 'status']  # Include fields you want in the form
-    template_name = 'blog/post_form.html'  # Template for creating posts
+    fields = ['title', 'content', 'status']  # Fields included in the form
+    template_name = 'blog/post_form.html'  # Template for the post creation form
 
     def form_valid(self, form):
-        # Automatically assign the logged-in user as the author
+        """Override form_valid to assign the current user as the post author."""
         form.instance.author = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
-        # Redirect to the profile page after a successful post creation
+        """Redirect to the profile page upon successful creation."""
         return reverse_lazy('profile')
+
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
