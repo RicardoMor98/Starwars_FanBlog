@@ -6,7 +6,7 @@
 
 <head>
     <title>Star Wars Fan Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!-- Google Fonts CSS -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -26,9 +26,7 @@
 
 </head>
 
-<body class="d-flex flex-column h-100 main-bg" 
-      style="background-image: ({% static 'images/galaxyuniverse.avif' %}); background-size: cover; background-position: center center; background-attachment: fixed;">
-
+<body class="d-flex flex-column h-100 main-bg" style="background-image: url('{% static '/images/galaxyuniverse.webp' %}'); background-size: cover; background-position: center center; background-attachment: fixed;">
 
 
 
@@ -44,27 +42,26 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0 justify-content-lg-end justify-content-center w-100">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link {% if request.path == home_url %}active" aria-current="page{% endif %}" href="{% url 'home' %}" aria-label="Go to Home page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                        <a class="nav-link {% if request.path == about_url %}active" aria-current="page{% endif %}" href="{% url 'about' %}" aria-label="Go to About page">About</a>
                     </li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Register</a>
-                        </li>
-                        {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == profile_url %}active" aria-current="page{% endif %}" href="{% url 'profile' %}" aria-label="Go to Profile page">Profile</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == logout_url %}active" aria-current="page{% endif %}" href="{% url 'logout' %}" aria-label="Go to Logout page">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == login_url %}active" aria-current="page{% endif %}" href="{% url 'login' %}" aria-label="Go to Login page">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == register_url %}active" aria-current="page{% endif %}" href="{% url 'register' %}" aria-label="Go to Register page">Register</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -85,7 +82,7 @@
         </div>
     </div>
     <main class="flex-shrink-0 mt-4">
-        <div class="container py-5 style= color: text-white">
+        <div class="container text-white backgroundimage" >
             <h1 class="text-center">Welcome to the Star Wars Fan Blog</h1>
             <p class="lead text-center">Explore the galaxy far, far away with us! From reviews, lore deep-dives, and the latest Star Wars news, we have it all for the biggest fans of the franchise.</p>
         </div>
