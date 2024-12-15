@@ -15,6 +15,23 @@ import os
 import dj_database_url
 if os.path.isfile('env.py'):
     import env
+import cloudinary
+import cloudinary.uploader
+#from cloudinary.utils import cloudinary_url
+
+# Configuration       
+#cloudinary.config( 
+#    cloud_name = "dsgjobmks", 
+#    api_key = "479255539733316", 
+#    api_secret = "XomOABSuUi-fAL-qSEpTcNDf46w", # Click 'View API Keys' above to copy your API secret
+#    secure=True
+#)
+
+# # Upload an image
+# upload_result = cloudinary.uploader.upload("https://res.cloudinary.com/dsgjobmks/image/upload/v1734278853/galaxy_universe_v6laim.avif",
+#                                            public_id="hero-image")
+# print(upload_result["secure_url"])
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +46,7 @@ LOGIN_REDIRECT_URL = '/profile/'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['8000-ricardomor9-starwarsfan-781oiwtl3q6.ws-eu117.gitpod.io',
                 '.herokuapp.com']
@@ -144,4 +161,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
