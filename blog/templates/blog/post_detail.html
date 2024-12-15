@@ -28,26 +28,25 @@
 
             <!-- Comment Section -->
             <div class="mt-5">
-                <h3 class="h5 text-dark">Comments</h3>
+                <h3 class="h5 text-white">Comments</h3> <!-- Title in white -->
                 <div class="comments-list">
                     {% for comment in comments %}
                         <div class="comment my-3 p-3 border rounded">
-                            <p class="text-muted mb-1 small"><strong>{{ comment.author }}</strong> - {{ comment.created_on }}</p>
-                            <p class="mb-0">{{ comment.body }}</p>
+                            <p class="text-muted mb-1 small"><strong class="text-white">{{ comment.author }}</strong> - <span class="text-white">{{ comment.created_on }}</span></p>
+                            <p class="text-white mb-0">{{ comment.body }}</p> <!-- Comment body in white -->
                         </div>
                     {% empty %}
-                        <p class="text-muted">No comments yet. Be the first to comment!</p>
+                        <p class="text-muted text-white">No comments yet. Be the first to comment!</p> <!-- Placeholder text in white -->
                     {% endfor %}
                 </div>
             </div>
 
             <!-- Comment Form -->
             <div class="mt-4">
-                <h4 class="h6 text-dark">Leave a Comment</h4>
                 {% if request.user.is_authenticated %}
                     <form method="post">
                         {% csrf_token %}
-                        {{ comment_form.as_p }}
+                        {{ comment_form }}
                         <button type="submit" class="btn btn-primary mt-2">Submit</button>
                     </form>
                 {% else %}
