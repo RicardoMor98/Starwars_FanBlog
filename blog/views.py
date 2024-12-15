@@ -8,11 +8,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .models import Post
+from .models import Post, Comment
 from .forms import UserRegisterForm
 from django.views.generic import DetailView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import CommentForm
 
 
 # Home page view to display published posts
@@ -104,11 +106,32 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         return reverse_lazy('profile')
 
 def post_detail(request, pk):
-    post = Post.objects.get(pk=pk)
-    
-    next_url = request.GET.get('next', '/')
+    post = get_object_or_404(Post, pk=pk)
+    comments = post.comments.filter(approved=True)  # Fetch approved comments
+    new_comment = None
+    next_url = request.GET.get('next', '/')  # Retrieve the 'next' URL parameter
 
-    return render(request, 'post_detail.html', {'post': post})
+    # Handle form submission for comments
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.author = request.user  # Set the current user as the author
+            new_comment.save()
+            messages.success(request, "Your comment has been submitted for review.")
+            return redirect("post_detail", pk=post.pk)  # Redirect to the same post page
+    else:
+        comment_form = CommentForm()
+
+    return render(request, 'post_detail.html', {
+        'post': post,
+        'comments': comments,
+        'new_comment': new_comment,
+        'comment_form': comment_form,
+        'next_url': next_url,  # Pass next_url to the template
+    })
+
 
 class PostDetailView(DetailView):
     model = Post
