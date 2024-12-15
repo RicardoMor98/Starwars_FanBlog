@@ -45,11 +45,14 @@ def register(request):
 # User profile view
 @login_required
 def profile(request):
-    # Fetch only posts created by the logged-in user
+    # Fetch only posts and comments created by the logged-in user
     user_posts = Post.objects.filter(author=request.user)
+    user_comments = Comment.objects.filter(author=request.user)
     context = {
         'posts': user_posts,
         'post_count': user_posts.count(),  # Total number of posts
+        'comments': user_comments,  # Comments made by the logged-in user
+        'comment_count': user_comments.count(),  # Total number of comments
         'user': request.user,  # Logged-in user's details
     }
 
@@ -124,7 +127,7 @@ def post_detail(request, pk):
     else:
         comment_form = CommentForm()
 
-    return render(request, 'post_detail.html', {
+    return render(request, 'blog/post_detail.html', {
         'post': post,
         'comments': comments,
         'new_comment': new_comment,
@@ -132,21 +135,53 @@ def post_detail(request, pk):
         'next_url': next_url,  # Pass next_url to the template
     })
 
+#class PostDetailView(DetailView):
+#    model = Post
+#    template_name = 'blog/post_detail.html'
+#    context_object_name = 'post'
 
-class PostDetailView(DetailView):
-    model = Post
-    template_name = 'blog/post_detail.html'
-    context_object_name = 'post'
+#def login_view(request):
+#    if request.method == "POST":
+#        form = AuthenticationForm(data=request.POST)
+#        if form.is_valid():
+#            user = form.get_user()
+#            login(request, user)
+#            # Redirect to the profile page after login
+#            return redirect('profile')  # 'profile' should be the name of your profile URL
+#    else:
+#        form = AuthenticationForm()
+#
+#    return render(request, 'login.html', {'form': form})
 
-def login_view(request):
-    if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
+def edit_comment(request, id):
+    # Fetch the comment object by its ID
+    comment = get_object_or_404(Comment, id=id)
+
+    # Ensure the user is the author of the comment
+    if comment.author != request.user:
+        return HttpResponseForbidden("You are not allowed to edit this comment.")
+
+    # If the request is POST, we process the form
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            # Redirect to the profile page after login
-            return redirect('profile')  # 'profile' should be the name of your profile URL
+            form.save()
+            return redirect('post_detail', pk=comment.post.id)  # Redirect to the post detail page
     else:
-        form = AuthenticationForm()
+        form = CommentForm(instance=comment)
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'blog/edit_comment.html', {'form': form, 'comment': comment})
+
+def delete_comment(request, id):
+    comment = get_object_or_404(Comment, id=id)
+
+    # Ensure the user is the author of the comment
+    if comment.author != request.user:
+        return HttpResponseForbidden("You are not allowed to delete this comment.")
+
+    # Delete the comment
+    comment.delete()
+
+    return redirect('post_detail', pk=comment.post.id)  # Redirect to the post detail page
+
+    

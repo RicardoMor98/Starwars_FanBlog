@@ -22,5 +22,5 @@ class CommentForm(forms.ModelForm):
             }),
         }
         labels = {
-            'body': 'Your Comment',
+            'body': '',
         }

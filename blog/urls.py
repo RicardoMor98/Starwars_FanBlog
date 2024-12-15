@@ -8,10 +8,13 @@ urlpatterns = [
     path('about/', views.AboutPage.as_view(), name='about'),  # About page
 
     # Post-related views
-    path('post/<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),  # View post details
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),  # View post details
+    # path('post/<int:pk>/', views.post_detail, name='post_detail'),  # View post details
     path('post/new/', views.PostCreateView.as_view(), name='post-create'),  # Create a new post
     path('post/<int:pk>/edit/', views.PostUpdateView.as_view(), name='post-edit'),  # Edit a post
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),  # Delete a post
+    path('comment/<int:id>/edit/', views.edit_comment, name='comment-edit'),
+    path('comment/<int:id>/delete/', views.delete_comment, name='comment-delete'),
 
     # Authentication views
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),  # Login page
