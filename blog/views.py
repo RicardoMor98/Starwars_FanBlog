@@ -105,7 +105,7 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
-
+    
     next_url = request.GET.get('next', '/')
 
     return render(request, 'post_detail.html', {'post': post})
