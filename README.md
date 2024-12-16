@@ -6,11 +6,12 @@ With **Star Wars FanBlog**, you can easily craft and share blog posts, offering 
 
 Join us in creating a hub where every fan’s voice can shine, and where diverse perspectives and thoughtful conversations about the Star Wars galaxy come together. Step into **Star Wars FanBlog** and start sharing your Star Wars journey today!
 
-<center> 
 
-![Blog image](docs/readme_images/responsiveblog.jpg) 
+  <center>
 
-</center>
+  ![Blog image](docs/readme_images/responsiveblog.png) 
+
+  </center>
 
 
 Developer: [Ricardo Moreira](https://github.com/RicardoMor98) <br>
@@ -131,10 +132,11 @@ We used a project [User stories board](https://github.com/users/RicardoMor98/pro
 ![Blog image](docs/readme_images/commentpost.jpg)
 
 #### Comment Table
+
 - Represents comments on blog posts.
 - Fields: users can add comments to start a dialogue about the post.
 
-![Blog image](docs/readme_images/commentsection.jpg)
+![Blog image](docs/readme_images/commentpost.png)
 
 <br>
 This database schema defines the structure and relationships for a blog application, including users, posts, comments, user profiles.
