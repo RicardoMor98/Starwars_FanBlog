@@ -1,555 +1,326 @@
-# Star Wars Fan Blog
+# Star Wars FanBlog Testing
 
-Welcome to **Star Wars FanBlog**, a fan-driven blog created for enthusiasts to celebrate and explore the galaxy far, far away. Whether you’re passionate about analyzing the lore of the Star Wars universe, reviewing the latest shows, movies, and books, or reminiscing about your favorite moments from the saga, this platform is the perfect destination for every Star Wars fan.
+## Table of Contents
 
-With **Star Wars FanBlog**, you can easily craft and share blog posts, offering your unique insights on everything from character arcs and epic battles to the rich storytelling and cinematic brilliance of the franchise. Our intuitive interface allows you to discover new content, engage in spirited discussions, and connect with a vibrant community that shares your love for all things Star Wars.
+1. [Testing User Stories](#testing-user-stories)
+    1. [Blog Accessibility](#blog-accessibility)
+    2. [Account Management](#account-management)
+    3. [Dashboard Management](#dashboard-management)
+    4. [Content Management](#content-management)
+    5. [Engagement and Information](#engagement-and-information)
+2. [Code Validation](#code-validation)
+    1. [HTML](#html)
+    2. [CSS](#css)
+    3. [JavaScript](#javascript)
+    4. [Python](#python)
+3. [Manual Testing](#manual-testing)
+    1. [General](#general)
+    2. [Admin Features](#admin-features)
+    3. [Account Management](#account-management)
+    4. [Pages](#pages)
+4. [Device and Browser Testing](#device-and-browser-testing)
+    1. [Device Compatibility](#device-compatibility)
+    2. [Browser Compatibility](#browser-compatibility)
+5. [Bugs](#bugs)
+6. [Accessibility](#accessibility)
 
-Join us in creating a hub where every fan’s voice can shine, and where diverse perspectives and thoughtful conversations about the Star Wars galaxy come together. Step into **Star Wars FanBlog** and start sharing your Star Wars journey today!
+## Testing User Stories
 
-<center> 
+### Blog Accessibility
+As a **guest user**, I can **view blog posts without the need to log in or register** so that **I can freely access content on the site**.
+- Blog posts are available without users needing to create an account or log in.
+- Previews of each post are available on the home page.
+- Navigation on the bottom of the page allows users to browse previews across multiple pages.
 
-![Blog image](docs/readme_images/responsiveblog.jpg) 
+As a **guest user**, I can **click on a post preview** so that **I can open the full post and read it in detail**.
+- Previews of each post are available on the home page.
+- Clicking on a preview opens a full-page view of the post.
+- A *Back to Posts* button allows users to return to their previous spot after viewing the full-page post.
 
-</center>
+As a **registered user**, I can **access exclusive content** so that **I can engage with the community and share information**.
+- Only registered and logged-in users can access and update their Dashboard.
+- Only registered and logged-in users can create, edit, or delete posts.
 
+**Note**: Due to time constraints, the ability for logged-in users to create and edit comments and / or participate in forum discussions, which was part of this User Story, has not been implemented.
 
-Developer: [Elena Hanna](https://github.com/Enzolita) <br>
-[Live webpage](https://gamers-united-63fd4bb05519.herokuapp.com/)<br>
-[Project Repository](https://github.com/Enzolita/gamers-united)<br>
+### Account Management
 
+As a **guest user**, I can **create an account** so that **I can have a personalized experience and access member-only features.**.
+- Users can create an account using their email address.
+- Users are provided with feedback messages for invalid form inputs.
+- Users do not receive a confirmation email after successful registration.
 
-![GitHub Badge](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=for-the-badge)
-![Gitpod Badge](https://img.shields.io/badge/Gitpod-FFAE33?logo=gitpod&logoColor=fff&style=for-the-badge)
-![Git Badge](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff&style=for-the-badge)
-![Heroku Badge](https://img.shields.io/badge/Heroku-430098?logo=heroku&logoColor=fff&style=for-the-badge)
-![PostgreSQL Badge](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=fff&style=for-the-badge)
+As a **registered user**, I can **log in to my account** so that **I can access my Dashboard and other member-only features**.
+- Users can log into their accounts using their username and password.
+- Users are redirected to the home page after logging in.
+- Logged-in users can access more sites and features than guest users, such as their Dashboard and the ability to create, edit, and delete posts.
 
-![HTML5 Badge](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=fff&style=for-the-badge)
-![CSS3 Badge](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=for-the-badge)
-![JSS Badge](https://img.shields.io/badge/JSS-F7DF1E?logo=jss&logoColor=000&style=for-the-badge)
-![Python Badge](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff&style=for-the-badge)
-![Markdown Badge](https://img.shields.io/badge/Markdown-000?logo=markdown&logoColor=fff&style=for-the-badge)
+As a **registered user**, I can **log out of my account** so that **I can ensure my account security and privacy**.
+- Users can log out of their accounts.
+- Users need to confirm that they want to log out before being logged out.
+- Users are redirected to the home page after logging out.
 
-![Bootstrap Badge](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=fff&style=for-the-badge)
-![Django Badge](https://img.shields.io/badge/Django-092E20?logo=django&logoColor=fff&style=for-the-badge)
+### Dashboard Management
 
+As a **registered user**, I can **delete my blog posts/comments from my Dashboard** so that **I can manage my content board**.
+- Each blog/comment post preview displays a *Delete* button.
+- When clicked, the corresponding blog post is removed from the Dashboard.
+- A feedback message indicates a post has been deleted successfully.
 
+As a **registered user**, I can **click on a post preview** so that **I can open the full post and read it in detail**.
+- Blog posts appear as previews on the Dashboard.
+- When clicking on the preview, the user is redirected to the full-page view of the post. 
+- A *Back to Posts* button returns users to their Dashboard from the full-page view.
 
-# Project Goals 
+### Content Management
 
-Star Wars FanBlog is a web application built with Django, designed to offer a vibrant platform for Star Wars fans to connect and share their passion, insights, theories, and personal experiences related to the Star Wars universe. This project focuses on the following key goals:
+As a **registered user**, I can **create a new blog post** so that **I can share my experiences and tips with the community**.
+- A form to create a new blog post is available for logged-in users.
+- Users are redirected to the Home page view of their newly created post after successful submission.
 
-- **Celebrating Star Wars Fandom** Creating a dedicated space for fans to contribute blog posts, reviews, and discussions about movies, shows, books, comics, games, and more.
-- **Seamless User Experience:** Delivering an intuitive and visually engaging interface that encourages exploration and active participation within the Star Wars community.
-- **Content Organization:**  Allowing users to organize and manage their posts, reviews, and discussions effectively, categorized by themes such as characters, lore, timelines, or media types.
+As a **registered user**, I can **update my existing blog posts** so that **I can correct or update the content I have shared with the community**.
+- Logged-in users see an *Edit* button on posts that they authored.
+- A WYSIWYG editor is provided to improve the users' experience.
+- After submission, a user feedback message informs users that their post has been updated successfully.
 
-- **Personalized Profiles:** Enabling users to showcase their favorite Star Wars media, track contributions, and customize their profiles to reflect their unique Star Wars identity.
-- **Community Engagement:** Fostering meaningful connections through comments, discussions, and collaborative reviews to strengthen the shared love of Star Wars.
-- **Administrative Oversight:**  Equipping administrators with tools to manage user accounts, moderate content, and maintain a safe and inclusive space for fans of all ages and perspectives.
+As a **registered user**, I can **delete my blog posts/comments** so that **I can remove content that I no longer want to share with the community**.
+- Logged-in users see a *Delete* button on posts that they authored.
+- After submission, a user feedback message informs users that their post has been deleted successfully.
+- After submission, users are redirected to the home page.
 
+As a **registered user**, I can **access and manage all my authored posts/comments from a central page** so that **I can efficiently maintain and update my content**.
+- Users can access a list of all their authored posts from their account drop-down menu. 
+- Users can open, update, or delete each post straight from their post list. 
+- Users can easily switch between views of their authored and saved posts. 
 
-### User Goals
-- Exploring and sharing detailed game reviews and posts.
-- Personalizing their profiles to showcase their gaming interests.
-- Engaging in discussions and leaving comments to contribute to the gaming community.
-- Submitting their own game reviews, posts, and perspectives.
+### Engagement and Information
 
-
-### Site Owner Goals
-
-  For Star Wars FanBlog, users will be able to:
-
-- Explore and Share Content: Dive into and contribute detailed posts and reviews about Star Wars movies, shows, books, games, and lore.
-- Personalize Profiles: Customize their profiles to showcase favorite Star Wars characters, media, timelines, or factions, creating a personal connection to the community.
-- Engage in Discussions: Participate in thoughtful discussions and leave comments to connect with other fans and contribute to the vibrant Star Wars community.
-- Submit Their Own Content: Share unique perspectives, theories, and reviews to celebrate their love for Star Wars and enrich the platform’s content.
-
- Project **Star Wars FanBlog** is dedicated to developing a vibrant community where Star Wars fans can connect, share, and explore the Star Wars universe through insightful posts, engaging discussions, and in-depth reviews.
-
-
-
-# User Experience
-
-### Target Audience
-
-Star Wars FanBlog caters to:
-
-- Passionate Star Wars Fans: Enthusiasts who are deeply invested in the Star Wars universe and are looking for detailed insights, theories, and reviews on movies, shows, books, and games.
-- Those Exploring the Star Wars Saga: Fans who wish to explore different aspects of Star Wars, from its lore and characters to its expanded universe across multiple media.
-- Contributors of Content: Users eager to share their own reviews, theories, fan fiction, and personal experiences, offering their unique perspectives on Star Wars.
-- Engaged Community Members: Fans interested in discussing their favorite moments, characters, and Star Wars-related topics with like-minded individuals.
-- Those Keeping Up with Star Wars Trends: Users who want to stay up-to-date with the latest Star Wars releases, news, and fan conversations within the community.
+As a **guest user**, I can **learn about Star Wars FanBlog experiences** so that **I feel connected to the community and inspired to engage with the content**.
+- The *About* page is available to view without needing to create an account or log in.
 
 
-### User Requirements and Expectations
+## Code Validation
 
-Users of **Star Wars FanBlog** can anticipate the following features and attributes to meet their needs:
+### HTML
 
-- An intuitive and user-friendly interface that facilitates easy navigation and access to Star Wars content.
-- In-depth reviews, posts, and analyses that provide thorough insights into the Star Wars universe, including movies, shows, books, games, and lore.
-- A responsive design that ensures an attractive and functional experience across various devices, from desktops to mobile.
-- Personalized elements, such as user profiles, that highlight Star Wars preferences, showcase favorite characters or media, and track individual contributions.
-- Opportunities for interactive participation through comments, discussions, and fan theories to build a strong and engaging community.
+[W3C Markup Validator](https://validator.w3.org/) was used to validate the HTML code of each templated page. HTML validation was performed via source code text input.
+
+| Tested | Result | View Result | Pass |
+--- | --- | --- | ---
+|Home | No errors or warnings to show. | <details><summary>Validation Image</summary>![Result](docs/testing_images/htmlvalidator/homehtml.png)</details>| Pass |
+|About | No errors or warnings to show. | <details><summary>Validation Image</summary>![Result](docs/testing_images/htmlvalidator/abouthtml.png)</details>| Pass |
+|Postal View | No errors or warnings to show. | <details><summary>Validation Image</summary>![Result](docs/testing_images/htmlvalidator/postviewhtml.png)</details>| Pass |
+|Create Post | No errors or warnings to show. | <details><summary>Validation Image</summary>![Result](docs/testing_images/htmlvalidator/postviewhtml.png)</details>| Pass |
+|Edit Post | No errors or warnings to show. | <details><summary>Validation Image</summary>![Result](docs/testing_images/htmlvalidator/editposthtml.png)</details>| Pass |
+|Sign In | No errors or warnings to show. | <details><summary>Validation Image</summary>![Result](docs/testing_images/htmlvalidator/loginhtml.png)</details>| Pass |
+|Sign Up | No errors or warnings to show. | <details><summary>Validation Image</summary>![Result](docs/testing_images/htmlvalidator/registerhtml.png)</details>| Pass |
+
+**Note**: *Post View* appear some errors.
+
+### CSS
+
+[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) was used to validate the custom CSS code.
+
+| Tested | Result | View Result | Pass/Fail |
+--- | --- | --- | ---
+|style.css | No Error Found. | <details><summary>Validation Image</summary>![Result](docs/testing_images/cssvalidator/cssvalidator.png)</details>| Pass |
 
 
-**Star Wars FanBlog** is dedicated to offering an engaging and immersive platform for users to explore, share, and discuss their passion for Star Wars.
+### JavaScript
 
-# User Stories
+[JSHint](https://jshint.com/) was used to validate the custom JavaScript code.
 
-### Agile Planning and Development
+| Tested | Result | View Result | Pass/Fail |
+--- | --- | --- | ---
+|script.js | No errors | Did not use script.js file except the ones come with summernote
+
+
+### Python
+
+[PEP8 Online Check](https://pep8ci.herokuapp.com) was used to validate the custom Python code.
+
+| Tested | Result | View Result | Pass/Fail |
+--- | --- | --- | ---
+|blog/admin.py | All clear, no errors found | <details><summary>Validation Image</summary>![Result](docs/testing_images/lintervalidation/adminvaldation.png)</details> | Pass |
+|blog/forms.py | All clear, no errors found | <details><summary>Validation Image</summary>![Result](docs/testing_images/lintervalidation/formsvalidator.png)</details> | Pass |
+|blog/models.py | All clear, no errors found | <details><summary>Validation Image</summary>![Result](docs/testing_images/lintervalidation/modelsvalidator.png)</details>| Pass |
+|blog/urls.py | All clear, no errors found | <details><summary>Validation Image</summary>![Result](docs/testing_images/lintervalidation/urlsvalidator.png)</details>| Pass | some errors |
+|blog/views.py | All clear, no errors found | <details><summary>Validation Image</summary>![Result](docs/testing_images/lintervalidation/viewsvalidator.png)</details>| Pass | some errors |
+|swfb/urls.py | All clear, no errors found | <details><summary>Validation Image</summary>![Result](docs/testing_images/lintervalidation/urlsvalidatorswfb.png)</details>| Pass |
+
+
+## Manual Testing
+
+### General
+
+#### Header
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| Logo | Click on logo redirects user to homepage | Pass | |
+| Navigation Bar | Click on the page name redirects the user to the corresponding page | Pass | |
+| Navigation Bar | Available links depend on user status | Pass | *Dashboard* link is only visible to logged-in users | 
+| Navigation Bar | Active page links change color | Pass | | 
+| Admin  | Display of dropdown depends on screensize | Pass | Logged-in users see a personalized greeting|
+| Admin  | Available links depend on user status | Pass | Logged-in users see links to *My Posts*, *My Comments*, and *Create New Post* |
+| Admin  | Logging menu depend on user status | Pass | Logged-in users see *Sign Out* rather than *Sign In* and *Sign Up* |
+| 
+
+#### Footer
+
+
+
+### Admin Features
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| Create Superuser | A Superuser is created | Pass | |
+| Manage users | New users can be created, updated, and deleted | Pass | |
+| Manage posts | New posts can be created, updated, and deleted | Pass | |
+| Manage contacts | Incoming contacts can be viewed and edited | Pass | |
+| Manage *About* content | The Superuser can edit the contents of the *About* page | Pass | |
+
+### Account Management
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| *Sign Up* page | Users can create a new account using their email address | Pass | Confirmation emails are not provided at the moment |
+| *Sign In* page | Users can sign in using their username and password | Pass | |
+| *Sign Out* page | Users can sign out of their account | Pass | |
+
+### Pages
+
+#### *Home* 
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| Post Previews | Posts are shown as preview cards, displaying the title, author, date, and excerpt | Pass |  |
+| Clickable Cards | Clicking on a preview card will open the full-page post view | Pass |  |
+| Pagination | Users can browse posts across multiple pages | Pass |  |
+
+#### *About* 
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| *Back to Posts* Button | Users will be returned to their previous place of browsing | Pass |  |
+| Availability | Users can access the *About* page without needing to log in | Pass |  |
+| Backend Management | The contents of the *About* page can be managed in the */admin* panel |  |
+
+#### *Contact Us* 
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| Form | An empty form is loaded for users to fill out | Pass |  |
+| Form Validation | Valid information has to be provided in all fields before successful submission | Pass |  |
+| *Confirmation* Message | A feedback message is displayed to the user after successful form submission | Pass |  |
+| *Back to Posts* Button | Users are redirected to the homepage | Pass |  |
+
+#### *Full-Page Post Views* 
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| Full-Page View | Blog posts are displayed on a full page, showing the title, author, date, and content | Pass |  | |
+| *Return* Button | Users are redirected to the homepage | Pass | 
+| *Action* - Edit Post | Users get redirected to the *Edit Your Post* page | Pass | The dropdown is only visible to the author of a post |
+| *Action* - Delete Post | A *Confirmation* modal pops up asking users to confirm post deletion | The dropdown is only visible to the author of a post |
+
+#### *Create a New Post* 
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| Form | An empty form is loaded | Pass |  |
+| Text Editor | Users can apply stylings to the content of their posts using the editor | Pass |  |
+| *Back* button | Users can discard their changes | Pass |  |
+| Title | Users need to choose a unique title for their post | Pass | An error message will appear if the title is not unique |
+| Full-Page Post Redirection | Users get redirected to the full-page post view after successfully creating a post | Pass |  |
+
+#### *Edit Your Post* 
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| Form | The form is prepopulated with the existing information | Pass |  |
+| Text Editor | Users can apply stylings to the content of their posts using the editor | Pass |  |
+| *Back* button | Users can discard their changes | Pass |  |
+| Title | Users need to choose a unique title for their post | Pass | An error message will appear if the title is not unique |
+
+
+#### *My Posts/Comments* 
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| List View | Users can view all their authored posts in one place | Pass |  |
+| List View | Newly authored posts automatically appear here | Pass |  |
+| Preview Cards | Authored posts appear as preview cards showing the title and creation date of each post | Pass |  |
+| *Action* | Users can choose to view, edit, and delete each post | Pass |  |
+| *Confirmation* Modal | Before deleting a post, users will be asked to confirm in a modal | Pass | Clicking outside of the modal will close the modal |
+| *Switch to Profile* Button | Users will be redirected to the *Dashboard* page | Pass |  |
+| *Create a New Post* Button | Users will be redirected to the *Create a New Post* page | Pass |  |
+
+#### *Dashboard* 
+
+| Element | Expected Outcome | Pass/Fail | Notes |
+|---|---|---|---|
+| List View | Users can view all their posts in one place | Pass |  |
+| List View | Comments in posts automatically appear on the Dashboard | Pass |  |
+| Preview Post | Posts appear as preview cards showing the title, author, and creation date of each post | Pass |  |
+| *Delete* Button | Posts will be removed from the Dashboard | Pass |  |
+| Navigation Bar | The Post/Comment is only possible to writte after successful login | Pass |  |
+
+
+## Device and Browser Testing
+
+### Device Compatibility
+
+Device | Outcome | Pass/Fail
+| --- | --- | --- |
+| iPhone 13 Mini | No issues with appearance, responsiveness, or functionality. | Pass |
+| iPad 9th Generation | No issues with appearance, responsiveness, or functionality. | Pass |
+| iPad Pro (9.7-inch) | No issues with appearance, responsiveness, or functionality. | Pass |
+| MacBook Air 13" | No appearance, responsiveness, or functionality issues. | Pass |
+| Asus Vivobook Pro 15 | No appearance, responsiveness, or functionality issues. | Pass |
+| Black Shark PAR-HOA | No issues with appearance, responsiveness, or functionality. | Pass |
+| Samsung Galaxy S23 | No issues with appearance, responsiveness, or functionality. | Pass |
+
+**Note**: When viewing *My Posts* on mobile and tablet devices, the dropdown button overlaps the post title for longer titles. However, this has no impact on the functionality.
+
+### Browser Compatibility
+
+Browser | Outcome | Pass/Fail
+| --- | --- | --- |
+| Safari | No appearance, responsiveness, or functionality issues. | Pass |
+| Google Chrome | No appearance, responsiveness, or functionality issues. | Pass |
+| Microsoft Edge | No appearance, responsiveness, or functionality issues. | Pass |
+| Mozilla Firefox | No appearance, responsiveness, or functionality issues. | Pass |
+| JoyUI Native Browsers | No appearance, responsiveness, or functionality issues. | Pass |
+
+
+
+## Bugs
+
+| Feature | Bug | Fix |
+|---|---|---|
+|The background image sometimes takes time to load and need to refresh a few times or open page again to appear |
+|*Switch to My Posts* Button | Users will be redirected to the *Home Page* |   
+
+
+
+## Accessibility
+
+[Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) in [Chrome DevTools](https://developer.chrome.com/docs/devtools/) was used to measure the page's quality, focusing on performance, accessibility, best practices, and SEO scores.
+<br>
+The scores are ordered as *Performance* - *Accessibility* - *Best Practices* - *SEO*.
+
+| Tested | Result | View Result | Pass/Fail |
+--- | --- | --- | ---
+|Home | 94 - 100 - 96 - 80 | <details><summary>Lighthouse Image</summary>![Result](docs/testing_images/testinghomepage.png)</details>| Pass |
+|About | 99 - 98 - 96 - 90 | <details><summary>Lighthouse Image</summary>![Result](docs/testing_images/testingabout.png)</details>| Pass |
+|Create Post | 99 - 98 - 96 - 90 | <details><summary>Lighthouse Image</summary>![Result](docs/testing_images/testingpostform.png)</details>| Pass |
+|Sign Up | 100 - 100 - 96 - 90 | <details><summary>Lighthouse Image</summary>![Result](docs/testing_images/testinglogin.png)</details>| Pass |
+|Sign Ip | 96 - 100 - 96 - 90 | <details><summary>Lighthouse Image</summary>![Result](docs/testing_images/testinglogin.png)</details>| Pass |
+|Post View | 89 - 96 - 96 - 100 | <details><summary>Lighthouse Image</summary>![Result](docs/testing_images/testingpostview.png)</details>| Pass |
+|Profile | 100 - 98 - 96 - 80 | <details><summary>Lighthouse Image</summary>![Result](docs/testing_images/testingprofile.png)</details>| Pass |
+
 
 <br>
-
-At Star Wars FanBlog, our planning and development process is guided by Agile methodologies and principles. While we don't adhere strictly to traditional Agile frameworks like scheduled sprints or scrums, we emphasize flexibility, continuous improvement, and the ability to adapt quickly to changing needs. Instead of focusing on sprints, we prioritize developing epics that align with the core functionalities of the platform, addressing User Stories based on their priority and impact on the user experience.
-
-Our overarching strategy divides the project into three key phases: planning, development (which includes unit and functional testing), and continuous deployment. Documentation is created, reviewed, and updated throughout the entire process, ensuring clear communication and transparency.
-
-Our approach is streamlined: we begin by developing essential features and core functionalities, then progressively tackle more complex aspects and enhancements. We actively engage with user feedback to identify areas for improvement, ensuring the platform evolves in line with the needs and expectations of the Star Wars fan community. This iterative process allows us to deliver a highly responsive and user-centered experience.
-
-We used a project [kanban board](https://github.com/users/Enzolita/projects/7) to track progress.
-
 <br>
-
-### Blog Application Database Schema
-
-#### UserProfile Table
-- Extends the User model to store additional user-specific information.
-- Fields: one-to-one relationship with the User model, username, bio email, date of registration, total of posts, total of comments.
-
-![Blog image](docs/readme_images/userprofile.png) 
-
-#### User Posts Dashboard
-- Represents user Posts. ( Django built In )
-- Fields: user can have visible his posts, view them, edi, delete.
-
-![Blog image](docs/readme_images/userposts.jpg) 
-
-#### User Comments Dashboard
-- Represents comments created by user.
-- Fields: user can see the posts he commented, can edit, delete them.
-
-![Blog image](docs/readme_images/commentpost.jpg)
-
-#### Comment Table
-- Represents comments on blog posts.
-- Fields: users can add comments to start a dialogue about the post.
-
-![Blog image](docs/readme_images/commentsection.jpg)
-
-<br>
-This database schema defines the structure and relationships for a blog application, including users, posts, comments, user profiles.
-
-  
-
-# Design
-In the world of **Star Wars FanBlog**, the design philosophy revolves around creating a modern and immersive user interface that brings the Star Wars universe to life. Drawing inspiration from the iconic aesthetics of Star Wars, the goal is to offer a visually engaging experience that resonates with fans. The primary objective is to ensure effortless navigation, discovery, and interaction with a rich array of Star Wars-related content, from movie reviews and character analyses to fan theories and news updates. The design aims to captivate users with thematic visuals and smooth functionality, making it easy for fans to explore and contribute to the community.
-
-
-
-### Fonts
-
-**Star Wars FanBlog** utilizes the default fonts provided by Bootstrap 5, ensuring a clean and polished look that enhances both the visual appeal and user experience of the site. This choice allows for a seamless and consistent design without the need for additional font customization, while still maintaining the site's immersive atmosphere and ensuring readability across all devices.
-
-### Structure
-
-The website is designed with a user-friendly structure to ensure smooth navigation and easy access to content. Here's a summary of the site layout:
-
-#### Before Logging In:
-
-- **Landing Page:** The landing page introduces visitors to **Star Wars FanBlog**, showcasing the platform and highlighting the exciting Star Wars content and features available.<br>
-- **About Us:**  The About Us page offers insight into **Star Wars FanBlog**, including our mission, values, and the benefits of being part of our passionate Star Wars fan community<br>
-- **Sign Up:** New users can quickly create an account on the Join Us page by providing the necessary information to join **Star Wars FanBlog** and become part of the community.<br>
-- **Log In:** Existing users can access their accounts and explore the full range of Star Wars-related content and discussions by logging in through the Log In page.<br>
-
-
-#### After Logging In:
-
-Once you're logged into **Star Wars FanBlog**, you'll be immersed in our vibrant Star Wars community with access to the following pages:
-
-- **Home Page:** The homepage serves as your gateway to the latest Star Wars posts, reviews, discussions, and news, keeping you updated with the most recent fan content.<br>
-- **Profile Page:** Your personalized profile where you can showcase your favorite Star Wars media, track your contributions, and manage your account settings.<br>
-
-We’ve designed this space to be your premier Star Wars hub, where you can engage, explore, and exchange thoughts with other passionate Star Wars fans. Whether you’re diving deep into the lore, discussing your favorite characters, or reviewing the latest Star Wars releases, **Star Wars FanBlog** offers a vibrant platform for every fan to connect and share their love for the galaxy far, far away.
-
-### Wireframes
-
-<details><summary>Create Post View</summary>
-<img src="docs/readme_images/postform.png">
-</details>
-
-
-# Technologies Used
-
-### Languages
-- HTML
-- CSS
-- JavaScript
-- Python
-
-### Frameworks
-- Django: A high-level Python web framework used for building the Star Wars FanBlog web application.
-- Crispy Forms: A Django package used for rendering forms in a more efficient and customizable way.
-- Bootstrap v5.3: A popular CSS framework used for creating responsive and visually appealing user interfaces.
-- Cloudinary: A cloud-based media management platform used for storing and serving images in the Blog Collective project.(In process to include on the blog)
-
-### Database
-- PostgreSQL database as a service. It is used as the database for the Blog Collective project, providing a reliable and scalable storage solution for the application's data.
-
-### Tools
-- **Git**: A distributed version control system used for tracking changes in the project's source code.
-- **GitHub**: A web-based hosting service for version control repositories, used for storing and managing the project's source code.
-- **Gitpod**: An online integrated development environment (IDE) used for developing and testing the Gamers United project.
-- **Heroku**: A cloud platform that enables deployment and hosting of web applications. Heroku was used for deploying the Gamers United project to a live server.
-- **Google Fonts**: A collection of free and open-source fonts used for typography on Gamers United website.
-
-
-
-### Supporting Libraries and Packages
-- asgiref==3.8.1
-- cloudinary==1.41.0
-- crispy-bootstrap5==0.7
-- dj-database-url==0.5.0
-- Django==4.2.17
-- django-cloudinary-storage==0.3.0
-- django-crispy-forms==2.3
-- django-summernote==0.8.20.0
-- gunicorn==20.1.0
-- pillow==11.0.0
-- psycopg2==2.9.10
-- sqlparse==0.5.3
-- whitenoise==5.3.0
-
-
-# Methodology
-
-**The Star Wars FanBlog** project follows a methodology inspired by agile principles, fostering collaboration, flexibility, and gradual development. The outlined approach has guided the project's evolution:
-
-
-### Agile Project Management with GitHub Projects
-To streamline project management, GitHub Projects is employed as a central hub. User stories and tasks are structured as GitHub issues, creating an organized workflow. The GitHub project board serves as a visual representation, tracking progress effectively.
-
-### User Stories as GitHub Issues
-Transforming user stories into GitHub issues captures user-centric functionalities. These issues interlink with respective user stories, simplifying access to criteria, tasks, and discussions.
-
-### Bug Tracking for Seamless Development
-Bugs uncovered during development are documented as GitHub issues, offering insights into each bug's characteristics, impact, and reproduction steps. By hyperlinking these issues in README.md, users can stay updated on bug resolutions and contribute insights.
-
-### Iterative Development Approach
---
-
-### Future Backlog and Progress
----
-
-**Labels and User Story Distribution (MoSCoW):**
-
-- **Must-Have:** -
-- **Should-Have:** -
-- **Could-Have:** -
-- **Wont-Have:** -
-- **Task:** -
-
-For a comprehensive view of the project's trajectory, user stories, and bug tracking, explore the [Kanban board](-).
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
-<p align="center">
-  
-</p>
-
-# Features
-
-### Landing Page/Home Page:
-- The landing page features an iconic Star Wars slogan, such as "Welcome to the **Star Wars Fan Blog**
-Explore the galaxy far, far away with us! From reviews, lore deep-dives, and the latest Star Wars news, we have it all for the biggest fans of the franchise." This immediately sets the tone and immerses visitors into the Star Wars universe.<details><summary>See Screenshot **Landingpage**</summary><img src="docs/readme_images/homepage.png"></details>
-
-
-### Post Detail Page:
-- The post details page displays comprehensive information about each post, including details about the writer and the post's creation date as well with the comments to the post.<details><summary>See Screenshot **Post detail**</summary><img src="docs/readme_images/postview.png"></details>
-
-
-### User Account Management:
-- The account sign-up form allows new users to create an account and join the Star Wars FanBlog. The form has validation to make sure that the user enters the correct information needed. This is a Django built-in validation system. Such validation is:
-
-    - **Username**: Required and has a maximum of 150 characters or fewer. Only letters, digits, and @/./+/-/_ are allowed.
-    - **Email**: Required and must be in a valid email format.
-    - **Password**: Subject to the following constraints:
-        - Must contain at least 8 characters.
-        - Cannot be a commonly used password.
-        - Cannot be entirely numeric.
-    - See Screenshot<details><summary>**SIGNUP VALIDATION**</summary><img src="docs/features/sign_up_validation.png"></details>
-
-
-- When an account is successfully created, the user will receive a confirmation message and gain access to the profile menu.
-
-- Users can access their profile page, where they can edit, delete, their posts and comments.
-
-- Users can also use the "Logout" option to sign out of their accounts. Upon doing so, they will be directed to the Home Page.
-
-
-### Navigation:
-
-- Both unauthorized and authorized users have access to the About Us page. 
-
-- On smaller screens, the navigation bar collapses into a burger menu, allowing for a compact and mobile-friendly navigation experience. Users can access the menu by clicking on the burger icon, which reveals the navigation options in a dropdown fashion.
-
-
-### Future Features
-
-Here are some exciting enhancements we plan to introduce to **Star Wars FanBlog**:
-
-- **Favorites and Save for Later:**  
-  Allow users to mark blog articles as favorites or save them for later reading, making it easier to revisit content.
-
-- **Effortless Social Media Sharing:**  
-  Enable users to easily share their favorite blog posts across various social media platforms, increasing the reach and visibility of **Star Wars FanBlog**.
-
-- **Multilingual Capabilities:**  
-  Add support for multiple languages to make **Star Wars FanBlog** accessible to a global audience and foster a more inclusive experience.
-
-- **Email Verification for Account Creation:**  
-  Implement email verification during account setup to improve security and ensure user authenticity.
-
-- **Password Recovery Options:**  
-  Introduce a password recovery feature to allow users to securely reset their passwords and regain access to their accounts.
-
-- **Image/Avatar:**
-Allow user to add a profile image or avatar with Star Wars characters.
-
-
-# Testing
-
----
-
-All testing, including both manual and automated testing, was carried out and documented in [Testing.md](TESTING.md). 
-
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
-<p align="center">
-
-</p>
-
-# Bugs
-
-
-### Fixed bugs
-
-| **Bug** | **Fix** |
-| ------- | ------- |
-| [-](http) | --- |
-| [-](http) | --- |
-| [-](http) | --- |
-| [-](http) | --- |
-| [-](http) | --- |
-| [-](http) | --- | -- |
-
-
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
-<p align="center">
-  
-</p>
-
-# Deployment
-
-### App Deployment
-For deploying Your app, Heroku is used. Follow these steps:
-
- **Create a New App:**
-   - Create a new app on Heroku dashboard.
-
- **Configure Settings:**
-   - Navigate to "Settings" in new app.
-
- **Config Vars Setup:**
-   - In "Config Vars," add `PORT` as the key and `8000` as its value.
-
- **Add PostgreSQL Database:**
-   - Choose PostgreSQL as database.
-
-        Example "ElephantSQL" was used in this project
-
- **Configure DATABASE_URL:**
-   - In "Config Vars," add `DATABASE_URL` and copy the URL from PostgreSQL dashboard.
-
-     Note: If using ElephantSQL as PostgreSQL provider, you can use the URL provided by ElephantSQL.
-
- **Environment Variable Setup:**
-   - Create a new file in workspace called `env.py`.
-   - Import the `os` library and set the environment variable for `DATABASE_URL` to the Heroku address (or ElephantSQL URL)
-   - Add a secret key using `os.environ["SECRET_KEY"] = "your secret key here"`.
-
- **Heroku Config Vars:**
-   - Add the secret key to the Heroku app's config vars in the settings.
-
- **Django Settings:**
-   - In `settings.py` of Django app, import `Path` from `pathlib`, `os`, and `dj_database_url`.
-   - Add `if os.path.isfile("env.py"): import env` to the file.
-   - Replace the SECRET_KEY with `SECRET_KEY = os.environ.get('SECRET_KEY')`.
-   - Replace the database section with `DATABASES = {'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))}`.
-
- **Migrate Models:**
-   - In workspace terminal, migrate the models to the new database connection.
-
-### Cloudinary
-To integrate Cloudinary into project, follow these steps:
-
- **Cloudinary Account:**
-   - Log in to Cloudinary account or create one.
-
- **Copy CLOUDINARY_URL:**
-   - Copy `CLOUDINARY_URL`.
-
- **Environment Variable Setup:**
-   - In `env.py`, add `os.environ["CLOUDINARY_URL"] = "add cloudinary_url here"`.
-
- **Heroku Config Vars:**
-   - In Heroku settings, add `CLOUDINARY_URL` to config vars.
-
- **Django Settings:**
-   - In `INSTALLED_APPS`, add `cloudinary_storage`, `Django.contrib.staticfiles`, and `cloudinary` in this order.
-   - Configure static file settings in `settings.py`: URL, storage path, directory path, root path, media URL, and default file storage.
-
- **Templates Directory Link:**
-   - Link the file to the templates directory in Heroku with `TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')`.
-
- **Change Templates Directory:**
-   - Change the templates directory to `TEMPLATES_DIR - 'DIRS': [TEMPLATES_DIR]`.
-
- **Additional Folders:**
-   - Create three new folders: `media`, `static`, and `templates`.
-
- **Procfile Creation:**
-   - Create a `Procfile`.
-   - Add the following line inside the Procfile: `web: gunicorn project_name_here.wsgi`.
-
- **Push Changes:**
-    - Push all changes to GitHub.
-
- **Manual Deployment:**
-    - In the Heroku deployment tab, deploy to Heroku manually the first time and closely monitor the process.
-    - Once successful, set up automatic deployments.
-
-### Version Control
-To manage version control and push code to the main repository on GitHub using GitPod, follow these steps:
-
- **Add Changes:**
-   - In the GitPod terminal, use the command `git add .` to stage changes.
-
- **Commit Changes:**
-   - Commit changes with a descriptive comment using the command:
-     ```
-     git commit -m "Push comment here"
-     ```
-
- **Push to GitHub:**
-   - Push the updates to the repository on GitHub with the command:
-     ```
-     git push
-     ```
-
-
- **Migrate Models:**
-    - In the terminal, migrate the models to the new database connection.
-
-### Forking the Repository:
-
-By forking the GitHub Repository, can create a copy of the original repository without affecting the original. Follow these steps:
-
- **GitHub Account Setup:**
-   - Log into GitHub account or create one if you don't have one.
-
- **Locate the Repository:**
-   - Find the repository at [https://github.com/Enzolita/gamers-united](https://github.com/Enzolita/gamers-united).
-
- **Fork the Repository:**
-   - At the top right of the repository page, click "Fork" to create a copy in your own GitHub repository.
-
-### Clone of the Repository:
-
-Creating a clone allows you to have a local copy of the project. Follow these steps:
-
- **Repository URL:**
-   - Navigate to [https://github.com/Enzolita/gamers-united](https://github.com/Enzolita/gamers-united).
-   - Click the green "Code" button at the top right.
-
- **Clone the Repository:**
-   - Select the "Clone by HTTPS" option and copy the provided URL to the clipboard.
-
- **Terminal and Git:**
-   - Open your code editor or terminal and navigate to the directory where you want to clone the repository.
-   - Run `git clone` followed by the copied URL.
-   - Press enter, and Git will clone the repository to your local machine.
-
-
-To fork the repository, follow these steps:
-
-1. Go to the GitHub repository.
-2. Click on the Fork button in the upper right-hand corner.
-3. Wait for the forking process to complete. Once done, you will have a copy of the repository in your GitHub account.
-
-To clone the repository, follow these steps:
-
-1. Go to the GitHub repository.
-2. Locate the Code button above the list of files and click it.
-3. Select your preferred method for cloning: HTTPS, SSH, or GitHub CLI, and click the copy button to copy the repository URL to your clipboard.
-4. Open Git Bash (or your preferred terminal).
-5. Change the current working directory to the location where you want the cloned directory to be created.
-6. Type the command `git clone` followed by the URL you copied in step 3. The command should look like this: `git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY`.
-7. Press Enter to create your local clone.
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
-<p align="center">
-  
-</p>
-
-# Credits
-I would like to express my gratitude to the following resources, which have been a huge help to me in the development of the Gamers United - Blog.
-
-### Media
-Images are taken from the following page:
-- [Leonardo.ai](https://leonardo.ai/) **-**
-
-
-### Django Documentation:
-The official Django documentation has been an invaluable resource throughout the project, providing comprehensive guidance on models, forms, templates, and various aspects of Django development.
-
-- [Models](https://docs.djangoproject.com/en/4.2/topics/db/models/)
-- [Form Validation](https://docs.djangoproject.com/en/4.1/ref/forms/validation/)
-- [Model Field Types](https://docs.djangoproject.com/en/4.2/ref/models/fields/#model-field-types)
-- [CSRF Trusted Origins](https://docs.djangoproject.com/en/4.0/ref/settings/#csrf-trusted-origins)
-- [Built-in template tags and filters](https://docs.djangoproject.com/en/4.2/ref/templates/builtins/)
-- [Creating forms from models](https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/)
-- [Model instance reference](https://docs.djangoproject.com/en/4.2/ref/models/instances/)
-- [Signals](https://docs.djangoproject.com/en/4.2/topics/signals/)
-- [Using mixins with class-based views](https://docs.djangoproject.com/en/4.2/topics/class-based-views/mixins/#detailview-working-with-a-single-django-object)
-- [Using widgets in the form](https://docs.djangoproject.com/en/4.2/ref/forms/widgets/)
--
-
-### W3 Schools:
-- [-]()
-
-### Bootstrap docs:
-- [Increase knowledge of bootstrap framework](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
-
-### Geeksforgeeks: 
-- [Using crisp form](https://www.geeksforgeeks.org/styling-django-forms-with-django-crispy-forms/)
-
-### Various tutorials and YouTube channels:
-I would like to extend my appreciation to the authors of the tutorials and YouTube channels that have shared their knowledge and expertise in Django development, enabling me to learn and apply best practices in building Gamers United.
-- [Python Django Tutorial: Full-Featured Web App Part 1 - Getting Started](https://www.youtube.com/watch?v=UmljXZIypDchttps://www.youtube.com/watch?v=UmljXZIypDc)
-- [Python and Django - Django Blog ](https://www.youtube.com/watch?v=B40bteAMM_M&list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi)
-- [Django Recipe Sharing Tutorial ](https://www.youtube.com/watch?v=sBjbty691eI&list=PLXuTq6OsqZjbCSfiLNb2f1FOs8viArjWy&index=1)
-
-### Content
-
-- Paragraphs/text for the webpage/readme was written together with [ChatGPT](https://chat.openai.com/)
-
-
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
-<p align="center">
-  
-</p>
-
-# Acknowledgments
-I'd like to give recognition to the individuals who supported me with this project:
-
-* [Jubril](https://github.com/), my Code Institute Mentor, for his exceptional guidance and expertise, which greatly contributed to my growth as a developer.
-
-[Code Institute Slack Channel:](https://codeinstitute.net/) Where all the amazing people are very supportive and helpful.
-
-I am truly grateful for their contributions, which have greatly enriched my learning and development.
+[Return to Main Readme](README.md)
