@@ -4,21 +4,21 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # Public pages
-    path('', views.PostList.as_view(), name='home'),  # Home page (List of posts)
-    path('about/', views.AboutPage.as_view(), name='about'),  # About page
+    path('', views.PostList.as_view(), name='home'),
+    path('about/', views.AboutPage.as_view(), name='about'),
 
     # Post-related views
-    path('post/<int:pk>/', views.post_detail, name='post_detail'),  # View post details
-    # path('post/<int:pk>/', views.post_detail, name='post_detail'),  # View post details
-    path('post/new/', views.PostCreateView.as_view(), name='post-create'),  # Create a new post
-    path('post/<int:pk>/edit/', views.PostUpdateView.as_view(), name='post-edit'),  # Edit a post
-    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),  # Delete a post
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    # path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    path('post/new/', views.PostCreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/edit/', views.PostUpdateView.as_view(), name='post-edit'),
+    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
     path('comment/<int:id>/edit/', views.edit_comment, name='comment-edit'),
     path('comment/<int:id>/delete/', views.delete_comment, name='comment-delete'),
 
     # Authentication views
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),  # Login page
-    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),  # Logout and redirect to home
-    path('register/', views.register, name='register'),  # User registration
-    path('profile/', views.profile, name='profile'),  # User profile page
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
+    path('register/', views.register, name='register'),
+    path('profile/', views.profile, name='profile'),
 ]

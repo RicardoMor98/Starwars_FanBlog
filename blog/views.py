@@ -23,9 +23,11 @@ class PostList(generic.ListView):
     template_name = "blog/index.html"  # Template for the home page
     paginate_by = 6  # Pagination: 6 posts per page
 
+
 # About page view
 class AboutPage(TemplateView):
-    template_name = 'blog/about.html'  # Template for the about page
+    template_name = 'blog/about.html'
+
 
 # User registration view
 def register(request):
@@ -35,12 +37,13 @@ def register(request):
             form.save()  # Save the new user
             username = form.cleaned_data.get('username')  # Get the username
             # Success message to inform the user their account was created
-            messages.success(request, f'Account created for {username}! You can now log in.')
+            messages.success(request, f'Account created for {username}! log in.')
             return redirect('login')  # Redirect to the login page
     else:
         form = UserRegisterForm()  # Instantiate an empty form
     # Render the registration form template
     return render(request, 'registration/register.html', {'form': form})
+
 
 # User profile view
 @login_required
@@ -59,6 +62,7 @@ def profile(request):
     # Render the profile page with additional data
     return render(request, 'blog/profile.html', context)
 
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     """
     View to handle the creation of a new blog post.
@@ -66,10 +70,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     """
     model = Post
     fields = ['title', 'content', 'status']  # Fields included in the form
-    template_name = 'blog/post_form.html'  # Template for the post creation form
+    template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
-        """Override form_valid to assign the current user as the post author."""
         form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -81,7 +84,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'content', 'status']  # Fields to display in the form
-    template_name = 'blog/post_form.html'  # Reuse the form template for creating and updating posts
+    template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
         # Ensure the post being updated belongs to the logged-in user
@@ -94,9 +97,10 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         # Redirect to the profile page after a successful update
         return reverse_lazy('profile')
 
+
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
-    template_name = 'blog/post_confirm_delete.html'  # Template for confirming deletion
+    template_name = 'blog/post_confirm_delete.html'
 
     def get_queryset(self):
         # Ensure the user can only delete their own posts
@@ -108,11 +112,12 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         messages.success(self.request, "Post deleted successfully!")
         return reverse_lazy('profile')
 
+
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.filter(approved=True)  # Fetch approved comments
     new_comment = None
-    next_url = request.GET.get('next', '/')  # Retrieve the 'next' URL parameter
+    next_url = request.GET.get('next', '/')
 
     # Handle form submission for comments
     if request.method == "POST":
@@ -120,10 +125,10 @@ def post_detail(request, pk):
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
-            new_comment.author = request.user  # Set the current user as the author
+            new_comment.author = request.user
             new_comment.save()
             messages.success(request, "Your comment has been submitted for review.")
-            return redirect("post_detail", pk=post.pk)  # Redirect to the same post page
+            return redirect("post_detail", pk=post.pk)
     else:
         comment_form = CommentForm()
 
@@ -135,12 +140,12 @@ def post_detail(request, pk):
         'next_url': next_url,  # Pass next_url to the template
     })
 
-#class PostDetailView(DetailView):
+# class PostDetailView(DetailView):
 #    model = Post
 #    template_name = 'blog/post_detail.html'
 #    context_object_name = 'post'
 
-#def login_view(request):
+# def login_view(request):
 #    if request.method == "POST":
 #        form = AuthenticationForm(data=request.POST)
 #        if form.is_valid():
@@ -152,6 +157,7 @@ def post_detail(request, pk):
 #        form = AuthenticationForm()
 #
 #    return render(request, 'login.html', {'form': form})
+
 
 def edit_comment(request, id):
     # Fetch the comment object by its ID
@@ -166,11 +172,12 @@ def edit_comment(request, id):
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
-            return redirect('post_detail', pk=comment.post.id)  # Redirect to the post detail page
+            return redirect('post_detail', pk=comment.post.id)
     else:
         form = CommentForm(instance=comment)
 
     return render(request, 'blog/edit_comment.html', {'form': form, 'comment': comment})
+
 
 def delete_comment(request, id):
     comment = get_object_or_404(Comment, id=id)
@@ -182,6 +189,6 @@ def delete_comment(request, id):
     # Delete the comment
     comment.delete()
 
-    return redirect('post_detail', pk=comment.post.id)  # Redirect to the post detail page
+    return redirect('post_detail', pk=comment.post.id)
 
     
