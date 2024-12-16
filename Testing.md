@@ -13,9 +13,9 @@ Join us in creating a hub where every fan’s voice can shine, and where diverse
 </center>
 
 
-Developer: [Ricardo Moreira](https://github.com/RicardoMor98) <br>
-[Live webpage](https://starwarsfanblog-cf58dc405513.herokuapp.com/)<br>
-[Project Repository](https://github.com/RicardoMor98/Starwars_FanBlog)<br>
+Developer: [Elena Hanna](https://github.com/Enzolita) <br>
+[Live webpage](https://gamers-united-63fd4bb05519.herokuapp.com/)<br>
+[Project Repository](https://github.com/Enzolita/gamers-united)<br>
 
 
 ![GitHub Badge](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=for-the-badge)
@@ -106,7 +106,7 @@ Our overarching strategy divides the project into three key phases: planning, de
 
 Our approach is streamlined: we begin by developing essential features and core functionalities, then progressively tackle more complex aspects and enhancements. We actively engage with user feedback to identify areas for improvement, ensuring the platform evolves in line with the needs and expectations of the Star Wars fan community. This iterative process allows us to deliver a highly responsive and user-centered experience.
 
-We used a project [User stories board](https://github.com/users/RicardoMor98/projects/4) to track progress.
+We used a project [kanban board](https://github.com/users/Enzolita/projects/7) to track progress.
 
 <br>
 
@@ -248,6 +248,11 @@ Bugs uncovered during development are documented as GitHub issues, offering insi
 - **Wont-Have:** -
 - **Task:** -
 
+For a comprehensive view of the project's trajectory, user stories, and bug tracking, explore the [Kanban board](-).
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+<p align="center">
+  
+</p>
 
 # Features
 
@@ -269,6 +274,7 @@ Explore the galaxy far, far away with us! From reviews, lore deep-dives, and the
         - Must contain at least 8 characters.
         - Cannot be a commonly used password.
         - Cannot be entirely numeric.
+    - See Screenshot<details><summary>**SIGNUP VALIDATION**</summary><img src="docs/features/sign_up_validation.png"></details>
 
 
 - When an account is successfully created, the user will receive a confirmation message and gain access to the profile menu.
@@ -314,6 +320,10 @@ Allow user to add a profile image or avatar with Star Wars characters.
 
 All testing, including both manual and automated testing, was carried out and documented in [Testing.md](TESTING.md). 
 
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+<p align="center">
+
+</p>
 
 # Bugs
 
@@ -330,6 +340,10 @@ All testing, including both manual and automated testing, was carried out and do
 | [-](http) | --- | -- |
 
 
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+<p align="center">
+  
+</p>
 
 # Deployment
 
@@ -353,7 +367,7 @@ For deploying Your app, Heroku is used. Follow these steps:
  **Configure DATABASE_URL:**
    - In "Config Vars," add `DATABASE_URL` and copy the URL from PostgreSQL dashboard.
 
-     Note: If using PostgreSQL provider, you can use the URL provided by PostgreSQL.
+     Note: If using ElephantSQL as PostgreSQL provider, you can use the URL provided by ElephantSQL.
 
  **Environment Variable Setup:**
    - Create a new file in workspace called `env.py`.
@@ -441,7 +455,7 @@ By forking the GitHub Repository, can create a copy of the original repository w
    - Log into GitHub account or create one if you don't have one.
 
  **Locate the Repository:**
-   - Find the repository at [https://github.com/RicardoMor98/Starwars_FanBlog](https://github.com/RicardoMor98/Starwars_FanBlog).
+   - Find the repository at [https://github.com/Enzolita/gamers-united](https://github.com/Enzolita/gamers-united).
 
  **Fork the Repository:**
    - At the top right of the repository page, click "Fork" to create a copy in your own GitHub repository.
@@ -451,7 +465,7 @@ By forking the GitHub Repository, can create a copy of the original repository w
 Creating a clone allows you to have a local copy of the project. Follow these steps:
 
  **Repository URL:**
-   - Navigate to [https://github.com/RicardoMor98/Starwars_FanBlog](https://github.com/RicardoMor98/Starwars_FanBlog).
+   - Navigate to [https://github.com/Enzolita/gamers-united](https://github.com/Enzolita/gamers-united).
    - Click the green "Code" button at the top right.
 
  **Clone the Repository:**
@@ -478,14 +492,17 @@ To clone the repository, follow these steps:
 5. Change the current working directory to the location where you want the cloned directory to be created.
 6. Type the command `git clone` followed by the URL you copied in step 3. The command should look like this: `git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY`.
 7. Press Enter to create your local clone.
-
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+<p align="center">
+  
+</p>
 
 # Credits
 I would like to express my gratitude to the following resources, which have been a huge help to me in the development of the Gamers United - Blog.
 
 ### Media
 Images are taken from the following page:
-- [Galatic Universe](https://depositphotos.com/vectors/star-wars-galaxy.html) **-**
+- [Leonardo.ai](https://leonardo.ai/) **-**
 
 
 ### Django Documentation:
@@ -523,16 +540,15 @@ I would like to extend my appreciation to the authors of the tutorials and YouTu
 - Paragraphs/text for the webpage/readme was written together with [ChatGPT](https://chat.openai.com/)
 
 
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+<p align="center">
+  
+</p>
+
 # Acknowledgments
 I'd like to give recognition to the individuals who supported me with this project:
 
-* Abhishek, for the support during the project.
-
-* Vernell, for support and guidance.
-
-* Laura, for support and guidance.
-
-* Tutor support [Code Institute:](https://codeinstitute.net/) for the patience  and guide through my mistakes.
+* [Jubril](https://github.com/), my Code Institute Mentor, for his exceptional guidance and expertise, which greatly contributed to my growth as a developer.
 
 [Code Institute Slack Channel:](https://codeinstitute.net/) Where all the amazing people are very supportive and helpful.
 
