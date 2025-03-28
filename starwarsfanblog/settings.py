@@ -46,9 +46,9 @@ LOGIN_REDIRECT_URL = '/profile/'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['8000-ricardomor9-starwarsfan-781oiwtl3q6.ws-eu117.gitpod.io',
+ALLOWED_HOSTS = ['8000-ricardomor9-starwarsfan-781oiwtl3q6.ws-eu118.gitpod.io',
                 '.herokuapp.com']
 
 
@@ -116,7 +116,7 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-ricardomor9-starwarsfan-781oiwtl3q6.ws-eu117.gitpod.io",
+    "https://8000-ricardomor9-starwarsfan-781oiwtl3q6.ws-eu118.gitpod.io",
     "https://starwarsfanblog-cf58dc405513.herokuapp.com/"
 ]
 
