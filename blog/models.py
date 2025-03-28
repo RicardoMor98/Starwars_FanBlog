@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
-
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
@@ -18,6 +17,11 @@ class Post(models.Model):
     excerpt = models.TextField(blank=True)
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
 
+    # Additional fields for like, dislike, and view counts
+    like_count = models.IntegerField(default=0)
+    dislike_count = models.IntegerField(default=0)
+    view_count = models.IntegerField(default=0)
+
     class Meta:
         ordering = ["-created_on"]
         verbose_name = "Blog Post"
@@ -25,6 +29,21 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.title} | written by {self.author}"
+
+    def increment_view_count(self):
+        """Method to increment the view count"""
+        self.view_count += 1
+        self.save()
+
+    def increment_like(self):
+        """Method to increment the like count"""
+        self.like_count += 1
+        self.save()
+
+    def increment_dislike(self):
+        """Method to increment the dislike count"""
+        self.dislike_count += 1
+        self.save()
 
 
 class Comment(models.Model):
@@ -37,7 +56,7 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_on"]  # Optional ordering for comments
+        ordering = ["-created_on"]
         verbose_name = "Comment"
         verbose_name_plural = "Comments"
 
