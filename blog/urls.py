@@ -9,6 +9,7 @@ urlpatterns = [
 
     # Post-related views
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    path('post/<int:pk>/like/', views.post_like, name='post_like'),
     # path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('post/new/', views.PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/edit/', views.PostUpdateView.as_view(), name='post-edit'),

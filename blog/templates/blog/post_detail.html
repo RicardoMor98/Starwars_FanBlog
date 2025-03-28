@@ -20,12 +20,31 @@
                         <p>{{ post.content|safe }}</p>
                     </div>
                     <hr />
+
+                    <!-- Like/Unlike Button Section -->
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="like-section">
+                            {% if user.is_authenticated %}
+                                {% if user_has_liked %}
+                                    <a href="{% url 'post_like' post.pk %}" class="btn btn-danger">Unlike</a>
+                                {% else %}
+                                    <a href="{% url 'post_like' post.pk %}" class="btn btn-primary">Like</a>
+                                {% endif %}
+                            {% else %}
+                                <p class="text-muted">You must be <a href="{% url 'login' %}?next={{ request.path }}" class="text-primary">logged in</a> to like this post.</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="view-count">
+                            <p class="text-muted small">Views: {{ post.view_count }}</p>
+                        </div>
+                    </div>
+
                     <div class="d-flex justify-content-center">
                         <a href="{% url 'home' %}" class="btn btn-secondary">Back to Posts</a>
                     </div>
                 </div>
             </div>
-        
 
             <!-- Comment Section -->
             <div class="mt-5">

@@ -1,20 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
-from django.views.generic.edit import UpdateView
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .models import Post, Comment
-from .forms import UserRegisterForm
-from django.views.generic import DetailView
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, get_object_or_404, redirect
-from .forms import CommentForm
+from .models import Post, Comment, PostLike, PostView
+from .forms import UserRegisterForm, CommentForm
+from django.http import HttpResponseForbidden
 
 
 # Home page view to display published posts
@@ -113,8 +107,47 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         return reverse_lazy('profile')
 
 
+# Post Like functionality
+@login_required
+def post_like(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    # Check if the user has already liked this post
+    existing_like = PostLike.objects.filter(post=post, user=request.user).first()
+
+    if existing_like:
+        # If the user already liked the post, remove the like (unlike)
+        existing_like.delete()
+        messages.success(request, f"You've unliked the post: {post.title}")
+    else:
+        # If the user hasn't liked the post, create a new like
+        PostLike.objects.create(post=post, user=request.user)
+        messages.success(request, f"You've liked the post: {post.title}")
+
+    return redirect('post_detail', pk=post.pk)
+
+
+# Track Post Views
+def track_post_view(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    
+    # Get the user's IP address (or use any other unique identifier if needed)
+    user_ip = request.META.get('REMOTE_ADDR')
+
+    # Ensure that a view is logged only once per unique IP per post
+    if not PostView.objects.filter(post=post, ip_address=user_ip).exists():
+        PostView.objects.create(post=post, ip_address=user_ip)
+        post.view_count += 1
+        post.save()
+
+    return post
+
+
+# Post Detail View (with likes and views)
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    post = track_post_view(request, pk)  # Track the view for the post
+
     comments = post.comments.filter(approved=True)  # Fetch approved comments
     new_comment = None
     next_url = request.GET.get('next', '/')
@@ -132,31 +165,17 @@ def post_detail(request, pk):
     else:
         comment_form = CommentForm()
 
+    # Fetching the like status of the current user for this post
+    user_has_liked = PostLike.objects.filter(post=post, user=request.user).exists()
+
     return render(request, 'blog/post_detail.html', {
         'post': post,
         'comments': comments,
         'new_comment': new_comment,
         'comment_form': comment_form,
         'next_url': next_url,  # Pass next_url to the template
+        'user_has_liked': user_has_liked,  # Pass whether the user has liked the post
     })
-
-# class PostDetailView(DetailView):
-#    model = Post
-#    template_name = 'blog/post_detail.html'
-#    context_object_name = 'post'
-
-# def login_view(request):
-#    if request.method == "POST":
-#        form = AuthenticationForm(data=request.POST)
-#        if form.is_valid():
-#            user = form.get_user()
-#            login(request, user)
-#            # Redirect to the profile page after login
-#            return redirect('profile')  # 'profile' should be the name of your profile URL
-#    else:
-#        form = AuthenticationForm()
-#
-#    return render(request, 'login.html', {'form': form})
 
 
 def edit_comment(request, id):
@@ -191,4 +210,4 @@ def delete_comment(request, id):
 
     return redirect('post_detail', pk=comment.post.id)
 
-    
+
