@@ -54,3 +54,11 @@ class PostLike(models.Model):
 
     def __str__(self):
         return f"Like by {self.user} on {self.post.title}"
+
+class PostView(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="views")
+    ip_address = models.GenericIPAddressField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"View by {self.ip_address} on {self.post.title}"
