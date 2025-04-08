@@ -112,35 +112,40 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 def post_like(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
-    # Check if the user has already liked this post
-    existing_like = PostLike.objects.filter(post=post, user=request.user).first()
+    # Check if the user already liked or disliked the post
+    existing_like = PostLike.objects.filter(post=post, user=request.user, like_type='like').first()
+    existing_dislike = PostLike.objects.filter(post=post, user=request.user, like_type='dislike').first()
 
-    if existing_like:
-        # If the user already liked the post, remove the like (unlike)
-        existing_like.delete()
-        messages.success(request, f"You've unliked the post: {post.title}")
-    else:
-        # If the user hasn't liked the post, create a new like
-        PostLike.objects.create(post=post, user=request.user)
-        messages.success(request, f"You've liked the post: {post.title}")
+    # Handle Like Action
+    if 'like' in request.POST:
+        if existing_like:
+            existing_like.delete()  # Remove like
+            messages.success(request, f"You've unliked the post: {post.title}")
+        else:
+            # Remove dislike if exists
+            if existing_dislike:
+                existing_dislike.delete()
+                messages.success(request, f"You've removed your dislike on the post: {post.title}")
+            # Create new like
+            PostLike.objects.create(post=post, user=request.user, like_type='like')
+            messages.success(request, f"You've liked the post: {post.title}")
+
+    # Handle Dislike Action
+    elif 'dislike' in request.POST:
+        if existing_dislike:
+            existing_dislike.delete()  # Remove dislike
+            messages.success(request, f"You've removed your dislike on the post: {post.title}")
+        else:
+            # Remove like if exists
+            if existing_like:
+                existing_like.delete()
+                messages.success(request, f"You've unliked the post: {post.title}")
+            # Create new dislike
+            PostLike.objects.create(post=post, user=request.user, like_type='dislike')
+            messages.success(request, f"You've disliked the post: {post.title}")
 
     return redirect('post_detail', pk=post.pk)
 
-
-# Track Post Views
-def track_post_view(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    
-    # Get the user's IP address (or use any other unique identifier if needed)
-    user_ip = request.META.get('REMOTE_ADDR')
-
-    # Ensure that a view is logged only once per unique IP per post
-    if not PostView.objects.filter(post=post, ip_address=user_ip).exists():
-        PostView.objects.create(post=post, ip_address=user_ip)
-        post.view_count += 1
-        post.save()
-
-    return post
 
 
 # Post Detail View (with likes and views)
@@ -152,6 +157,10 @@ def post_detail(request, pk):
     new_comment = None
     next_url = request.GET.get('next', '/')
 
+    # Fetching the like and dislike status of the current user for this post
+    user_has_liked = PostLike.objects.filter(post=post, user=request.user, like_type='like').exists()
+    user_has_disliked = PostLike.objects.filter(post=post, user=request.user, like_type='dislike').exists()
+
     # Handle form submission for comments
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
@@ -160,13 +169,13 @@ def post_detail(request, pk):
             new_comment.post = post
             new_comment.author = request.user
             new_comment.save()
+
+            # Send success message for successful submission
             messages.success(request, "Your comment has been submitted for review.")
+
             return redirect("post_detail", pk=post.pk)
     else:
         comment_form = CommentForm()
-
-    # Fetching the like status of the current user for this post
-    user_has_liked = PostLike.objects.filter(post=post, user=request.user).exists()
 
     return render(request, 'blog/post_detail.html', {
         'post': post,
@@ -175,6 +184,7 @@ def post_detail(request, pk):
         'comment_form': comment_form,
         'next_url': next_url,  # Pass next_url to the template
         'user_has_liked': user_has_liked,  # Pass whether the user has liked the post
+        'user_has_disliked': user_has_disliked,  # Pass whether the user has disliked the post
     })
 
 
@@ -211,3 +221,15 @@ def delete_comment(request, id):
     return redirect('post_detail', pk=comment.post.id)
 
 
+def track_post_view(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    
+    # Track the post view with the user's IP address
+    ip_address = request.META.get('REMOTE_ADDR')
+    
+    # Ensure one view per IP address
+    if not PostView.objects.filter(post=post, ip_address=ip_address).exists():
+        PostView.objects.create(post=post, ip_address=ip_address)
+        post.increment_view_count()  # Increment the view count for the post
+
+    return post
