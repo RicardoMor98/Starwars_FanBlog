@@ -10,18 +10,15 @@ from .models import Post, Comment, PostLike, PostView
 from .forms import UserRegisterForm, CommentForm
 from django.http import HttpResponseForbidden
 
-
 # Home page view to display published posts
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1)  # Only published posts (status=1)
     template_name = "blog/index.html"  # Template for the home page
     paginate_by = 6  # Pagination: 6 posts per page
 
-
 # About page view
 class AboutPage(TemplateView):
     template_name = 'blog/about.html'
-
 
 # User registration view
 def register(request):
@@ -38,11 +35,9 @@ def register(request):
     # Render the registration form template
     return render(request, 'registration/register.html', {'form': form})
 
-
 # User profile view
 @login_required
 def profile(request):
-    # Fetch only posts and comments created by the logged-in user
     user_posts = Post.objects.filter(author=request.user)
     user_comments = Comment.objects.filter(author=request.user)
     context = {
@@ -56,12 +51,8 @@ def profile(request):
     # Render the profile page with additional data
     return render(request, 'blog/profile.html', context)
 
-
+# Post Create View (for logged-in users)
 class PostCreateView(LoginRequiredMixin, CreateView):
-    """
-    View to handle the creation of a new blog post.
-    Assigns the logged-in user as the author automatically.
-    """
     model = Post
     fields = ['title', 'content', 'status']  # Fields included in the form
     template_name = 'blog/post_form.html'
@@ -74,94 +65,76 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         """Redirect to the profile page upon successful creation."""
         return reverse_lazy('profile')
 
-
+# Post Update View (for logged-in users)
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'content', 'status']  # Fields to display in the form
     template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
-        # Ensure the post being updated belongs to the logged-in user
         if form.instance.author != self.request.user:
             messages.error(self.request, "You are not authorized to edit this post.")
             return redirect('profile')
         return super().form_valid(form)
 
     def get_success_url(self):
-        # Redirect to the profile page after a successful update
         return reverse_lazy('profile')
 
-
+# Post Delete View (for logged-in users)
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html'
 
     def get_queryset(self):
-        # Ensure the user can only delete their own posts
-        queryset = super().get_queryset()
-        return queryset.filter(author=self.request.user)
+        return super().get_queryset().filter(author=self.request.user)
 
     def get_success_url(self):
-        # Redirect to the profile page after successful deletion
         messages.success(self.request, "Post deleted successfully!")
         return reverse_lazy('profile')
-
 
 # Post Like functionality
 @login_required
 def post_like(request, pk):
     post = get_object_or_404(Post, pk=pk)
-
-    # Check if the user already liked or disliked the post
     existing_like = PostLike.objects.filter(post=post, user=request.user, like_type='like').first()
     existing_dislike = PostLike.objects.filter(post=post, user=request.user, like_type='dislike').first()
 
-    # Handle Like Action
     if 'like' in request.POST:
         if existing_like:
-            existing_like.delete()  # Remove like
+            existing_like.delete()
             messages.success(request, f"You've unliked the post: {post.title}")
         else:
-            # Remove dislike if exists
             if existing_dislike:
                 existing_dislike.delete()
                 messages.success(request, f"You've removed your dislike on the post: {post.title}")
-            # Create new like
             PostLike.objects.create(post=post, user=request.user, like_type='like')
             messages.success(request, f"You've liked the post: {post.title}")
 
-    # Handle Dislike Action
     elif 'dislike' in request.POST:
         if existing_dislike:
-            existing_dislike.delete()  # Remove dislike
+            existing_dislike.delete()
             messages.success(request, f"You've removed your dislike on the post: {post.title}")
         else:
-            # Remove like if exists
             if existing_like:
                 existing_like.delete()
                 messages.success(request, f"You've unliked the post: {post.title}")
-            # Create new dislike
             PostLike.objects.create(post=post, user=request.user, like_type='dislike')
             messages.success(request, f"You've disliked the post: {post.title}")
 
     return redirect('post_detail', pk=post.pk)
 
-
-
 # Post Detail View (with likes and views)
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    post = track_post_view(request, pk)  # Track the view for the post
+    post = track_post_view(request, pk)
 
-    comments = post.comments.filter(approved=True)  # Fetch approved comments
+    comments = post.comments.filter(approved=True)
     new_comment = None
     next_url = request.GET.get('next', '/')
 
-    # Fetching the like and dislike status of the current user for this post
     user_has_liked = PostLike.objects.filter(post=post, user=request.user, like_type='like').exists()
     user_has_disliked = PostLike.objects.filter(post=post, user=request.user, like_type='dislike').exists()
 
-    # Handle form submission for comments
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -169,10 +142,7 @@ def post_detail(request, pk):
             new_comment.post = post
             new_comment.author = request.user
             new_comment.save()
-
-            # Send success message for successful submission
             messages.success(request, "Your comment has been submitted for review.")
-
             return redirect("post_detail", pk=post.pk)
     else:
         comment_form = CommentForm()
@@ -182,21 +152,18 @@ def post_detail(request, pk):
         'comments': comments,
         'new_comment': new_comment,
         'comment_form': comment_form,
-        'next_url': next_url,  # Pass next_url to the template
-        'user_has_liked': user_has_liked,  # Pass whether the user has liked the post
-        'user_has_disliked': user_has_disliked,  # Pass whether the user has disliked the post
+        'next_url': next_url,
+        'user_has_liked': user_has_liked,
+        'user_has_disliked': user_has_disliked,
     })
 
-
+# Edit comment view
 def edit_comment(request, id):
-    # Fetch the comment object by its ID
     comment = get_object_or_404(Comment, id=id)
 
-    # Ensure the user is the author of the comment
     if comment.author != request.user:
         return HttpResponseForbidden("You are not allowed to edit this comment.")
 
-    # If the request is POST, we process the form
     if request.method == 'POST':
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
@@ -207,29 +174,23 @@ def edit_comment(request, id):
 
     return render(request, 'blog/edit_comment.html', {'form': form, 'comment': comment})
 
-
+# Delete comment view
 def delete_comment(request, id):
     comment = get_object_or_404(Comment, id=id)
 
-    # Ensure the user is the author of the comment
     if comment.author != request.user:
         return HttpResponseForbidden("You are not allowed to delete this comment.")
 
-    # Delete the comment
     comment.delete()
-
     return redirect('post_detail', pk=comment.post.id)
 
-
+# Track the post view with the user's IP address
 def track_post_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    
-    # Track the post view with the user's IP address
     ip_address = request.META.get('REMOTE_ADDR')
-    
-    # Ensure one view per IP address
+
     if not PostView.objects.filter(post=post, ip_address=ip_address).exists():
         PostView.objects.create(post=post, ip_address=ip_address)
-        post.increment_view_count()  # Increment the view count for the post
+        post.increment_view_count()
 
     return post

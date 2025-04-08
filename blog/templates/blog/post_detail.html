@@ -25,17 +25,14 @@
                     <div class="d-flex mb-3">
                         <div class="like-section d-flex">
                             {% if user.is_authenticated %}
-                                <!-- Like Button -->
-                                <form method="POST" action="{% url 'post_like' post.pk %}" class="d-inline mr-3">
+                                <form method="POST" action="{% url 'post_like' post.pk %}" class="d-inline">
                                     {% csrf_token %}
+                                    <!-- Like Button -->
                                     <button type="submit" name="like" class="btn {% if user_has_liked %}btn-primary{% else %}btn-secondary{% endif %}">
                                         {% if user_has_liked %}Unlike{% else %}Like{% endif %}
                                     </button>
-                                </form>
-                        
-                                <!-- Dislike Button -->
-                                <form method="POST" action="{% url 'post_like' post.pk %}" class="d-inline mr-3">
-                                    {% csrf_token %}
+                                    
+                                    <!-- Dislike Button -->
                                     <button type="submit" name="dislike" class="btn {% if user_has_disliked %}btn-danger{% else %}btn-secondary{% endif %}">
                                         {% if user_has_disliked %}Remove Dislike{% else %}Dislike{% endif %}
                                     </button>
@@ -59,15 +56,15 @@
 
             <!-- Comment Section -->
             <div class="mt-5">
-                <h3 class="h5 text-white">Comments</h3> <!-- Title in white -->
+                <h3 class="h5 text-white">Comments</h3>
                 <div class="comments-list">
                     {% for comment in comments %}
                         <div class="comment my-3 p-3 border rounded">
                             <p class="text-muted mb-1 small"><strong class="text-white">{{ comment.author }}</strong> - <span class="text-white">{{ comment.created_on }}</span></p>
-                            <p class="text-white mb-0">{{ comment.body }}</p> <!-- Comment body in white -->
+                            <p class="text-white mb-0">{{ comment.body }}</p>
                         </div>
                     {% empty %}
-                        <p class="text-muted text-white">No comments yet. Be the first to comment!</p> <!-- Placeholder text in white -->
+                        <p class="text-muted text-white">No comments yet. Be the first to comment!</p>
                     {% endfor %}
                 </div>
             </div>
@@ -77,7 +74,7 @@
                 {% if request.user.is_authenticated %}
                     <form method="post">
                         {% csrf_token %}
-                        {{ comment_form }}
+                        {{ comment_form.as_p }}  <!-- Ensures the form fields render correctly -->
                         <button type="submit" class="btn btn-primary mt-2">Submit</button>
                     </form>
                 {% else %}
