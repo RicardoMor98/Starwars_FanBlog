@@ -64,15 +64,16 @@ class Comment(models.Model):
         return f"Comment by {self.author} on {self.post.title}"
 
 class PostLike(models.Model):
+    LIKE_CHOICES = (
+        ('like', 'Like'),
+        ('dislike', 'Dislike'),
+    )
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
-    created_on = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    like_type = models.CharField(max_length=7, choices=LIKE_CHOICES)
 
     class Meta:
-        unique_together = ('post', 'user')  # Ensure a user can only like/dislike once per post
-
-    def __str__(self):
-        return f"Like by {self.user} on {self.post.title}"
+        unique_together = ('post', 'user', 'like_type')
 
 class PostView(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="views")
@@ -81,3 +82,7 @@ class PostView(models.Model):
 
     def __str__(self):
         return f"View by {self.ip_address} on {self.post.title}"
+
+def increment_view_count(sender, instance, created, **kwargs):
+    if created:  
+        instance.post.increment_view_count()
