@@ -21,21 +21,32 @@
                     </div>
                     <hr />
 
-                    <!-- Like/Unlike Button Section -->
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="like-section">
+                    <!-- Like/Unlike and Dislike Button Section (aligned on the same line) -->
+                    <div class="d-flex mb-3">
+                        <div class="like-section d-flex">
                             {% if user.is_authenticated %}
-                                {% if user_has_liked %}
-                                    <a href="{% url 'post_like' post.pk %}" class="btn btn-danger">Unlike</a>
-                                {% else %}
-                                    <a href="{% url 'post_like' post.pk %}" class="btn btn-primary">Like</a>
-                                {% endif %}
+                                <!-- Like Button -->
+                                <form method="POST" action="{% url 'post_like' post.pk %}" class="d-inline mr-3">
+                                    {% csrf_token %}
+                                    <button type="submit" name="like" class="btn {% if user_has_liked %}btn-primary{% else %}btn-secondary{% endif %}">
+                                        {% if user_has_liked %}Unlike{% else %}Like{% endif %}
+                                    </button>
+                                </form>
+                        
+                                <!-- Dislike Button -->
+                                <form method="POST" action="{% url 'post_like' post.pk %}" class="d-inline mr-3">
+                                    {% csrf_token %}
+                                    <button type="submit" name="dislike" class="btn {% if user_has_disliked %}btn-danger{% else %}btn-secondary{% endif %}">
+                                        {% if user_has_disliked %}Remove Dislike{% else %}Dislike{% endif %}
+                                    </button>
+                                </form>
                             {% else %}
-                                <p class="text-muted">You must be <a href="{% url 'login' %}?next={{ request.path }}" class="text-primary">logged in</a> to like this post.</p>
+                                <p class="text-muted">You must be <a href="{% url 'login' %}?next={{ request.path }}" class="text-primary">logged in</a> to like or dislike this post.</p>
                             {% endif %}
                         </div>
 
-                        <div class="view-count">
+                        <!-- Move the view count to the right using ml-auto (margin-left auto) with added space -->
+                        <div class="view-count ml-auto">
                             <p class="text-muted small">Views: {{ post.view_count }}</p>
                         </div>
                     </div>
