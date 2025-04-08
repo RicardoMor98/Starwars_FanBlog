@@ -96,6 +96,12 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 @login_required
 def post_like(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
+    # Ensure the user is authenticated
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to like or dislike a post.")
+        return redirect('login')  # Redirect to login page if user is not authenticated
+
     existing_like = PostLike.objects.filter(post=post, user=request.user, like_type='like').first()
     existing_dislike = PostLike.objects.filter(post=post, user=request.user, like_type='dislike').first()
 
@@ -132,8 +138,9 @@ def post_detail(request, pk):
     new_comment = None
     next_url = request.GET.get('next', '/')
 
-    user_has_liked = PostLike.objects.filter(post=post, user=request.user, like_type='like').exists()
-    user_has_disliked = PostLike.objects.filter(post=post, user=request.user, like_type='dislike').exists()
+    # Check if the user has liked or disliked the post
+    user_has_liked = PostLike.objects.filter(post=post, user=request.user, like_type='like').exists() if request.user.is_authenticated else False
+    user_has_disliked = PostLike.objects.filter(post=post, user=request.user, like_type='dislike').exists() if request.user.is_authenticated else False
 
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
