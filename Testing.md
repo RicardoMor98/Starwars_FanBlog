@@ -62,8 +62,9 @@ As a **registered user**, I can **log out of my account** so that **I can ensure
 
 ### Dashboard Management
 
-As a **registered user**, I can **delete my blog posts/comments from my Dashboard** so that **I can manage my content board**.
+As a **registered user**, I can **delete my blog posts/comments from my Dashboard**, I can **Like/Dislike blog posts** I can **manage my content board**.
 - Each blog/comment post preview displays a *Delete* button.
+- Each blog post preview displays a *Like/Dislike* button.
 - When clicked, the corresponding blog post is removed from the Dashboard.
 - A feedback message indicates a post has been deleted successfully.
 
@@ -266,6 +267,14 @@ As a **guest user**, I can **learn about Star Wars FanBlog experiences** so that
 | *Delete* Button | Posts will be removed from the Dashboard | Pass |  |
 | Navigation Bar | The Post/Comment is only possible to writte after successful login | Pass |  |
 
+#### Likes/Dislikes
+
+| Element |	Expected Outcome |	Pass/Fail |	Notes |
+| Like Button |	Users can like a post by clicking the like button |	Pass |	
+| Dislike Button |	Users can dislike a post by clicking the dislike button | Pass |
+| Action |	Users can like, dislike, or remove their like/dislike on a post | Pass |	
+| Confirmation Modal |	Before removing a like or dislike, users will be asked to confirm in a modal |	Pass |
+| Create New Post Button |	Users can create a new post and allow other users to like or dislike it | Pass |
 
 ## Device and Browser Testing
 

@@ -138,6 +138,21 @@ We used a project [User stories board](https://github.com/users/RicardoMor98/pro
 
 ![Blog image](docs/readme_images/commentpost.png)
 
+#### Like/Dislike Post
+
+- Represents Likes/Dislikes on blog posts.
+- Fields: users can add like/dislike about the post.
+
+![Blog image](docs/readme_images/likedislikebutton.png)
+
+- Like option selected 
+
+![Blog image](docs/readme_images/likeselection.png)
+
+- Dislike option selected
+
+![Blog image](docs/readme_images/dislikeselection.png)
+
 <br>
 This database schema defines the structure and relationships for a blog application, including users, posts, comments, user profiles.
 
