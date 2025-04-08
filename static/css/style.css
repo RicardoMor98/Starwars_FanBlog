@@ -40,6 +40,57 @@
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
+/* Styling for success and error messages */
+/* Personalized Message Box Styles */
+.custom-message-box {
+    border: 2px solid #ddd;          /* Add a border to make the box more distinct */
+    padding: 15px;                    /* Add padding for better spacing */
+    border-radius: 10px;              /* Rounded corners */
+    font-family: Arial, sans-serif;   /* Custom font */
+    margin-top: 20px;                 /* Space above the box */
+    background-color: #f9f9f9;       /* Light gray background */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    display: flex;                    /* Flexbox for content layout */
+    align-items: center;              /* Center items vertically */
+    justify-content: space-between;   /* Space out content */
+}
+
+/* Success alert - Green background */
+.alert-success {
+    background-color: #28a745;        /* Green background for success */
+    color: white !important;           /* Ensure white text */
+}
+
+/* Danger alert - Red background */
+.alert-danger {
+    background-color: #dc3545;        /* Red background for error */
+    color: white !important;           /* Ensure white text */
+}
+
+/* Info alert - Blue background */
+.alert-info {
+    background-color: #17a2b8;        /* Blue background for information */
+    color: white !important;           /* Ensure white text */
+}
+
+/* Warning alert - Yellow background */
+.alert-warning {
+    background-color: #ffc107;        /* Yellow background for warning */
+    color: black !important;           /* Black text for readability */
+}
+
+.btn-close {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-close:hover {
+    color: #ccc;  /* Color change on hover */
+}
+
 
 /* Make the footer content stack on smaller screens */
 @media (max-width: 576px) {
@@ -49,6 +100,11 @@
 
     .social-icon {
         font-size: 25px; /* Slightly smaller icons on small screens */
+    }
+
+    .alert {
+        font-size: 0.9rem; /* Smaller font size for messages on mobile */
+        padding: 10px 15px; /* Less padding on small screens */
     }
 }
 

@@ -21,14 +21,11 @@
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'images' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Correct path for your CSS file -->
 
 </head>
 
-<body class="d-flex flex-column h-100 main-bg" style="background-image: url('{% static '/images/galaxyuniverse.webp' %}'); background-size: cover; background-position: center center; background-attachment: fixed;">
-
-
+<body class="d-flex flex-column h-100 main-bg" style="background-image: url('{% static 'images/galaxyuniverse.webp' %}'); background-size: cover; background-position: center center; background-attachment: fixed;">
 
 
     <!-- Navigation -->
@@ -66,21 +63,22 @@
             </div>
         </div>
     </nav>
+
     <!-- displaying Django messages -->
     <div class="container">
         <div class="row">
-        <div class="col-md-8 offset-md-2">
-            {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissible
-            fade show" id="msg" role="alert">
-            {{ message | safe }}
-            <button type="button" class="btn-close"
-                data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="col-md-8 offset-md-2">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} custom-message-box text-white" id="msg" role="alert">
+                        {{ message|safe }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="color: rgb(232, 236, 240);"></button>
+                    </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
         </div>
     </div>
+    
+
     <main class="flex-shrink-0 mt-4">
         <div class="container text-white backgroundimage" >
             <h1 class="text-center">Welcome to the Star Wars Fan Blog</h1>
@@ -90,7 +88,6 @@
         {% block content %}
         <!-- Dynamic Content Goes Here -->
         {% endblock content %}
-
     </main>
 
     <!-- Footer -->
