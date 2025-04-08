@@ -46,7 +46,7 @@ LOGIN_REDIRECT_URL = '/profile/'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-ricardomor9-starwarsfan-781oiwtl3q6.ws-eu118.gitpod.io',
                 '.herokuapp.com']
